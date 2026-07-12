@@ -1,0 +1,12 @@
+{
+  "name": "Valmiki Online Service",
+  "short_name": "Valmiki",
+  "description": "Stationery, groceries and daily essentials, delivered across Salem.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f5f1",
+  "theme_color": "#0e3b5c",
+  "icons": [
+    { "src": "/logo.png", "sizes": "587x421", "type": "image/png" }
+  ]
+}
