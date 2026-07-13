@@ -8,6 +8,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getDb } from "@/lib/firebase";
 import type { Order } from "@/types/firestore";
 
 type OrderInput = Omit<Order, "id" | "createdAt" | "orderStatus"> & {
@@ -61,6 +63,17 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
       createdAt: new Date(),
     };
     setOrders((prev) => [order, ...prev]);
+
+    // Save to Firestore so admin can see it
+    const db = getDb();
+    if (db) {
+      addDoc(collection(db, "orders"), {
+        ...order,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      }).catch(() => {});
+    }
+
     return order;
   };
 

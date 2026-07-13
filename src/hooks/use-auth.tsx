@@ -14,7 +14,8 @@ import {
   GoogleAuthProvider,
   type User,
 } from "firebase/auth";
-import { getFirebaseAuth, isFirebaseConfigured } from "@/lib/firebase";
+import { doc, getDoc, setDoc, serverTimestamp, increment } from "firebase/firestore";
+import { getFirebaseAuth, isFirebaseConfigured, getDb } from "@/lib/firebase";
 
 type AuthContextValue = {
   user: User | null;
@@ -53,7 +54,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return { success: false, error: "Google sign-in isn't configured yet." };
     }
     try {
-      await signInWithPopup(auth, new GoogleAuthProvider());
+      const result = await signInWithPopup(auth, new GoogleAuthProvider());
+      const u = result.user;
+      const db = getDb();
+      if (db) {
+        const userRef = doc(db, "users", u.uid);
+        const existing = await getDoc(userRef).catch(() => null);
+        const isNew = !existing?.exists();
+        await setDoc(
+          userRef,
+          {
+            name: u.displayName ?? "",
+            email: u.email ?? "",
+            phone: u.phoneNumber ?? "",
+            photoURL: u.photoURL ?? "",
+            lastLoginAt: serverTimestamp(),
+            loginCount: increment(1),
+            ...(isNew ? { createdAt: serverTimestamp() } : {}),
+          },
+          { merge: true }
+        ).catch(() => {});
+      }
       return { success: true };
     } catch {
       return { success: false, error: "Google sign-in failed. Please try again." };
