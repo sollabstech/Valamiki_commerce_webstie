@@ -8,7 +8,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import type { Banner } from "@/types/firestore";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
 const gradients = [
   "from-primary-800 via-primary-700 to-primary-600",
@@ -86,15 +85,6 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
                       {banner.subtitle}
                     </motion.p>
                   )}
-                  <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    <Button variant="secondary" size="md" asChild>
-                      <span>Shop Now</span>
-                    </Button>
-                  </motion.div>
                 </div>
               </Link>
             </div>

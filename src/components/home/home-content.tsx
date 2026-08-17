@@ -5,13 +5,11 @@ import { useCatalog } from "@/hooks/use-catalog";
 import { HeroBanner } from "@/components/home/hero-banner";
 import { CategoryGrid } from "@/components/home/category-grid";
 import { ProductRail } from "@/components/home/product-rail";
-import { FlashDeals } from "@/components/home/flash-deals";
 import { Testimonials } from "@/components/home/testimonials";
 import { Newsletter } from "@/components/home/newsletter";
-import { FaqSection } from "@/components/home/faq-section";
 
 export function HomeContent() {
-  const { banners, featured, bestsellers, flashDeals, newArrivals, loading } = useCatalog();
+  const { banners, featured, bestsellers, newArrivals, loading } = useCatalog();
 
   if (loading) {
     return (
@@ -29,10 +27,6 @@ export function HomeContent() {
 
       <Container>
         <CategoryGrid />
-      </Container>
-
-      <Container>
-        <FlashDeals products={flashDeals} />
       </Container>
 
       <Container>
@@ -55,9 +49,6 @@ export function HomeContent() {
         <Newsletter />
       </Container>
 
-      <Container>
-        <FaqSection />
-      </Container>
     </div>
   );
 }

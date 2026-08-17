@@ -4,7 +4,10 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ChevronRight, Heart, Minus, Plus, Share2, ShieldCheck, RotateCcw, Truck } from "lucide-react";
+import {
+  ChevronRight, Heart, Minus, Plus, Share2,
+  ShieldCheck, RotateCcw, Truck, PackageSearch,
+} from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,28 +20,107 @@ import { ProductRail } from "@/components/home/product-rail";
 import { useCatalog } from "@/hooks/use-catalog";
 import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
-import { effectivePrice, hasDiscount, isRecentlyAdded, type Product } from "@/types/firestore";
+import { effectivePrice, hasDiscount, isRecentlyAdded } from "@/types/firestore";
 import { cn, formatPrice } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
-export function ProductDetailContent({ product }: { product: Product }) {
+function ProductDetailSkeleton() {
+  return (
+    <Container className="py-6 sm:py-8">
+      {/* Breadcrumb skeleton */}
+      <div className="mb-4 flex items-center gap-2">
+        {[64, 8, 80, 8, 140].map((w, i) => (
+          <div key={i} className={`h-4 animate-pulse rounded bg-primary-50`} style={{ width: w }} />
+        ))}
+      </div>
+      <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+        {/* Gallery skeleton */}
+        <div className="space-y-3">
+          <div className="aspect-square animate-pulse rounded-2xl bg-primary-50" />
+          <div className="flex gap-2">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-16 w-16 animate-pulse rounded-lg bg-primary-50" />
+            ))}
+          </div>
+        </div>
+        {/* Info skeleton */}
+        <div className="space-y-4 pt-2">
+          <div className="h-8 w-2/3 animate-pulse rounded-lg bg-primary-50" />
+          <div className="h-4 w-1/3 animate-pulse rounded bg-primary-50" />
+          <div className="h-5 w-1/4 animate-pulse rounded bg-primary-50" />
+          <div className="h-10 w-2/5 animate-pulse rounded-xl bg-primary-50" />
+          <div className="h-4 w-1/4 animate-pulse rounded bg-primary-50" />
+          <div className="h-14 w-full animate-pulse rounded-xl bg-primary-50" />
+          <div className="h-12 w-full animate-pulse rounded-xl bg-primary-50" />
+          <div className="h-20 w-full animate-pulse rounded-xl bg-primary-50" />
+        </div>
+      </div>
+    </Container>
+  );
+}
+
+/**
+ * Accepts a productId string and fetches the product client-side via the
+ * shared useCatalog() hook. This avoids the server-side Firebase client SDK
+ * issue that caused 404 errors on the product page.
+ */
+export function ProductDetailContent({ productId }: { productId: string }) {
   const router = useRouter();
-  const { products } = useCatalog();
+  const { products, loading } = useCatalog();
   const { addItem } = useCart();
   const { isWishlisted, toggle } = useWishlist();
   const [quantity, setQuantity] = useState(1);
   const [tab, setTab] = useState<"description" | "specifications">("description");
 
+  // Derive product and related items from the catalog.
+  const product = useMemo(
+    () => products.find((p) => p.id === productId) ?? null,
+    [products, productId],
+  );
+  const related = useMemo(
+    () =>
+      product
+        ? products.filter((p) => p.categoryId === product.categoryId && p.id !== product.id)
+        : [],
+    [products, product],
+  );
+
+  // ─── Loading ─────────────────────────────────────────────────────────────
+  if (loading) return <ProductDetailSkeleton />;
+
+  // ─── Not found ───────────────────────────────────────────────────────────
+  if (!product) {
+    return (
+      <Container className="flex min-h-[60vh] flex-col items-center justify-center py-16 text-center">
+        <PackageSearch className="mb-4 size-14 text-ink-200" />
+        <h1 className="mb-2 font-display text-2xl font-bold text-ink-900">Product Not Found</h1>
+        <p className="mb-6 text-sm text-ink-500">
+          This product doesn&apos;t exist or may have been removed.
+        </p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <button
+            onClick={() => router.back()}
+            className="rounded-lg border border-border-strong px-5 py-2.5 text-sm font-semibold text-ink-900 hover:bg-cream-100"
+          >
+            Go Back
+          </button>
+          <Link
+            href="/"
+            className="rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-800"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </Container>
+    );
+  }
+
+  // ─── Product found ────────────────────────────────────────────────────────
   const discounted = hasDiscount(product);
   const price = effectivePrice(product);
   const isNew = isRecentlyAdded(product);
   const wishlisted = isWishlisted(product.id);
   const outOfStock = product.stock <= 0;
-
-  const related = useMemo(
-    () => products.filter((p) => p.categoryId === product.categoryId && p.id !== product.id),
-    [products, product]
-  );
 
   const handleAddToCart = () => {
     addItem(product, quantity);
@@ -102,7 +184,11 @@ export function ProductDetailContent({ product }: { product: Product }) {
           <p className="mt-1 text-xs text-ink-500">Inclusive of all taxes</p>
 
           <p className={cn("mt-3 text-sm font-medium", outOfStock ? "text-error" : "text-success")}>
-            {outOfStock ? "Out of Stock" : product.stock <= 10 ? `Only ${product.stock} left in stock` : "In Stock"}
+            {outOfStock
+              ? "Out of Stock"
+              : product.stock <= 10
+              ? `Only ${product.stock} left in stock`
+              : "In Stock"}
           </p>
 
           <div className="mt-5 flex items-center gap-4">
@@ -172,18 +258,22 @@ export function ProductDetailContent({ product }: { product: Product }) {
 
           <div className="mt-5 grid grid-cols-3 gap-2 text-center text-xs text-ink-500">
             <div className="flex flex-col items-center gap-1.5 rounded-lg bg-cream-100 p-3">
-              <ShieldCheck className="size-4.5 text-primary-700" /> 100% Genuine
+              <ShieldCheck className="size-4.5 text-primary-700" />
+              100% Genuine
             </div>
             <div className="flex flex-col items-center gap-1.5 rounded-lg bg-cream-100 p-3">
-              <Truck className="size-4.5 text-primary-700" /> Fast Delivery
+              <Truck className="size-4.5 text-primary-700" />
+              Fast Delivery
             </div>
             <div className="flex flex-col items-center gap-1.5 rounded-lg bg-cream-100 p-3">
-              <RotateCcw className="size-4.5 text-primary-700" /> Easy Returns
+              <RotateCcw className="size-4.5 text-primary-700" />
+              Easy Returns
             </div>
           </div>
         </div>
       </div>
 
+      {/* Description / Specs tabs */}
       <div className="mt-12">
         <div className="flex gap-6 border-b border-border">
           {(["description", "specifications"] as const).map((t) => (
@@ -192,7 +282,9 @@ export function ProductDetailContent({ product }: { product: Product }) {
               onClick={() => setTab(t)}
               className={cn(
                 "border-b-2 pb-3 text-sm font-semibold capitalize transition-colors",
-                tab === t ? "border-primary-700 text-primary-700" : "border-transparent text-ink-500"
+                tab === t
+                  ? "border-primary-700 text-primary-700"
+                  : "border-transparent text-ink-500",
               )}
             >
               {t}
@@ -204,21 +296,25 @@ export function ProductDetailContent({ product }: { product: Product }) {
             <p className="max-w-3xl text-sm leading-relaxed text-ink-700">{product.description}</p>
           ) : (
             <dl className="grid max-w-xl grid-cols-1 gap-y-2 text-sm sm:grid-cols-2">
-              <div className="flex justify-between border-b border-border py-2 sm:col-span-1">
+              <div className="flex justify-between border-b border-border py-2">
                 <dt className="text-ink-500">Category</dt>
                 <dd className="font-medium text-ink-900">{product.categoryName}</dd>
               </div>
-              <div className="flex justify-between border-b border-border py-2 sm:col-span-1">
+              <div className="flex justify-between border-b border-border py-2">
                 <dt className="text-ink-500">Unit</dt>
                 <dd className="font-medium text-ink-900">{product.unit}</dd>
               </div>
-              <div className="flex justify-between border-b border-border py-2 sm:col-span-1">
+              <div className="flex justify-between border-b border-border py-2">
                 <dt className="text-ink-500">Stock</dt>
-                <dd className="font-medium text-ink-900">{outOfStock ? "Out of stock" : `${product.stock} available`}</dd>
+                <dd className="font-medium text-ink-900">
+                  {outOfStock ? "Out of stock" : `${product.stock} available`}
+                </dd>
               </div>
-              <div className="flex justify-between border-b border-border py-2 sm:col-span-1">
+              <div className="flex justify-between border-b border-border py-2">
                 <dt className="text-ink-500">Tags</dt>
-                <dd className="font-medium capitalize text-ink-900">{product.tags.join(", ") || "—"}</dd>
+                <dd className="font-medium capitalize text-ink-900">
+                  {product.tags.join(", ") || "—"}
+                </dd>
               </div>
             </dl>
           )}

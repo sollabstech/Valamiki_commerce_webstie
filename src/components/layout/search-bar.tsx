@@ -20,6 +20,7 @@ export function SearchBar({ className, autoFocus }: { className?: string; autoFo
     query.trim().length > 0
       ? products
           .filter((p) => p.name.toLowerCase().includes(query.trim().toLowerCase()))
+          .sort((a, b) => a.name.localeCompare(b.name))
           .slice(0, 6)
       : [];
 

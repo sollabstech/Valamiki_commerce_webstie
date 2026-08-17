@@ -1,6 +1,5 @@
 import { collection, getDocs, type DocumentData } from "firebase/firestore";
 import { getDb } from "@/lib/firebase";
-import { mockBanners } from "@/lib/mock-data";
 import type { Banner } from "@/types/firestore";
 
 function fromDoc(id: string, data: DocumentData): Banner {
@@ -18,18 +17,14 @@ function fromDoc(id: string, data: DocumentData): Banner {
 
 export async function fetchBanners(): Promise<Banner[]> {
   const db = getDb();
-  if (db) {
-    try {
-      const snap = await getDocs(collection(db, "banners"));
-      if (!snap.empty) {
-        return snap.docs
-          .map((d) => fromDoc(d.id, d.data()))
-          .filter((b) => b.isActive)
-          .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
-      }
-    } catch {
-      // fall through to mock data
-    }
+  if (!db) return [];
+  try {
+    const snap = await getDocs(collection(db, "banners"));
+    return snap.docs
+      .map((d) => fromDoc(d.id, d.data()))
+      .filter((b) => b.isActive)
+      .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+  } catch {
+    return [];
   }
-  return mockBanners;
 }

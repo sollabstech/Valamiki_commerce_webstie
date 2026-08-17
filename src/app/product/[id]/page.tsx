@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { fetchProductById } from "@/lib/firestore/products";
 import { ProductDetailContent } from "@/components/product/product-detail-content";
 
 export async function generateMetadata({
@@ -8,17 +6,14 @@ export async function generateMetadata({
 }: {
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
+  // Product data fetched client-side; return a sensible fallback for SEO crawlers.
   const { id } = await params;
-  const product = await fetchProductById(id);
-  if (!product) return { title: "Product Not Found" };
-
   return {
-    title: product.name,
-    description: product.description,
+    title: "Product | Valmiki",
+    description: "Shop quality groceries and stationery from Valmiki — fast delivery across Salem.",
     openGraph: {
-      title: product.name,
-      description: product.description,
-      images: product.images[0] ? [product.images[0]] : undefined,
+      title: "Product | Valmiki",
+      description: "Shop quality groceries and stationery from Valmiki.",
     },
   };
 }
@@ -29,9 +24,6 @@ export default async function ProductPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = await fetchProductById(id);
-
-  if (!product) notFound();
-
-  return <ProductDetailContent product={product} />;
+  // ProductDetailContent fetches the product client-side via Firestore.
+  return <ProductDetailContent productId={id} />;
 }

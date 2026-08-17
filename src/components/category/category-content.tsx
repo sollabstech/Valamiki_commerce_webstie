@@ -10,7 +10,6 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { SortSelect, type SortOption } from "@/components/category/sort-select";
 import { FilterPanel, matchesPriceBand, type PriceBand } from "@/components/category/filter-panel";
 import { useCatalog } from "@/hooks/use-catalog";
-import { categories } from "@/config/nav";
 import { effectivePrice, isRecentlyAdded } from "@/types/firestore";
 
 function sortProducts(products: ReturnType<typeof useCatalog>["products"], sort: SortOption) {
@@ -32,11 +31,12 @@ function sortProducts(products: ReturnType<typeof useCatalog>["products"], sort:
 export function CategoryContent({ categoryId }: { categoryId: string }) {
   const searchParams = useSearchParams();
   const filter = searchParams.get("filter");
-  const { products, loading } = useCatalog();
+  const { products, categories, loading } = useCatalog();
   const [sort, setSort] = useState<SortOption>("relevance");
   const [priceBand, setPriceBand] = useState<PriceBand>("all");
   const [inStockOnly, setInStockOnly] = useState(false);
 
+  // Use Firestore categories (not hardcoded nav list) so real doc IDs match.
   const category = categories.find((c) => c.id === categoryId);
   const isAll = categoryId === "all";
 

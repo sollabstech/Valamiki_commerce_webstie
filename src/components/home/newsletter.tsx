@@ -4,15 +4,45 @@ import { useState } from "react";
 import { Mail, Send } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { getDb } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from "firebase/firestore";
 
 export function Newsletter() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    toast.success("Subscribed! Watch your inbox for offers.");
-    setEmail("");
+    setLoading(true);
+    try {
+      const db = getDb();
+      if (!db) throw new Error("DB not available");
+
+      // Check if already subscribed
+      const existing = await getDocs(
+        query(collection(db, "subscribers"), where("email", "==", email.trim().toLowerCase()))
+      );
+      if (!existing.empty) {
+        toast.info("You're already subscribed!");
+        setEmail("");
+        setLoading(false);
+        return;
+      }
+
+      await addDoc(collection(db, "subscribers"), {
+        email: email.trim().toLowerCase(),
+        subscribedAt: serverTimestamp(),
+      });
+
+      toast.success("Subscribed! Watch your inbox for offers.");
+      setEmail("");
+    } catch (err) {
+      console.error("Subscribe error:", err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,10 +65,18 @@ export function Newsletter() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="h-12 flex-1 rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder:text-white/60 outline-none focus:border-secondary-400 focus:ring-2 focus:ring-secondary-400/30"
+            disabled={loading}
+            className="h-12 flex-1 rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder:text-white/60 outline-none focus:border-secondary-400 focus:ring-2 focus:ring-secondary-400/30 disabled:opacity-60"
           />
-          <Button type="submit" variant="secondary" size="lg" className="justify-center gap-2">
-            Subscribe <Send className="size-4" />
+          <Button type="submit" variant="secondary" size="lg" className="justify-center gap-2" disabled={loading}>
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <span className="size-4 animate-spin rounded-full border-2 border-primary-900/30 border-t-primary-900" />
+                Subscribing...
+              </span>
+            ) : (
+              <><Send className="size-4" /> Subscribe</>
+            )}
           </Button>
         </form>
       </div>

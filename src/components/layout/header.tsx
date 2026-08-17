@@ -74,7 +74,7 @@ export function Header() {
 
       <div className="hidden border-t border-border md:block">
         <Container>
-          <nav className="flex h-11 items-center gap-6">
+          <nav className="flex h-11 items-center justify-center gap-6">
             {mainNav.map((item) => {
               const active = pathname === item.href;
               return (
