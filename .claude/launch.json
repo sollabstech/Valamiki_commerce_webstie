@@ -3,10 +3,9 @@
   "configurations": [
     {
       "name": "vaimiki_ecommerce",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 3000,
-      "autoPort": true
+      "runtimeExecutable": "C:\\Users\\sollabstech\\Desktop\\Valamiki_commerce_webstie\\start-dev.cmd",
+      "runtimeArgs": [],
+      "port": 3002
     }
   ]
 }
