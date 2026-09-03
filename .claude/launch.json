@@ -3,9 +3,15 @@
   "configurations": [
     {
       "name": "vaimiki_ecommerce",
-      "runtimeExecutable": "C:\\Users\\sollabstech\\Desktop\\Valamiki_commerce_webstie\\start-dev.cmd",
-      "runtimeArgs": [],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "-p", "3002"],
       "port": 3002
+    },
+    {
+      "name": "valamiki_admin",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/admin/sollabstech/Valamiki_admin_pandel", "run", "dev", "--", "-p", "3003"],
+      "port": 3003
     }
   ]
 }
