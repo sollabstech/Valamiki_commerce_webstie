@@ -4,14 +4,14 @@
     {
       "name": "vaimiki_ecommerce",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "-p", "3002"],
-      "port": 3002
+      "runtimeArgs": ["run", "dev", "--", "-p", "3001"],
+      "port": 3001
     },
     {
       "name": "valamiki_admin",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "/Users/admin/sollabstech/Valamiki_admin_pandel", "run", "dev", "--", "-p", "3003"],
-      "port": 3003
+      "runtimeArgs": ["--prefix", "/Users/admin/sollabstech/Valamiki_admin_pandel", "run", "dev", "--", "-p", "3002"],
+      "port": 3002
     }
   ]
 }
