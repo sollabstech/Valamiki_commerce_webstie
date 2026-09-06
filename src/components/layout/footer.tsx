@@ -15,12 +15,16 @@ const trustBadges = [
 export function Footer() {
   return (
     <footer className="mt-16 border-t border-border bg-white pb-24 md:pb-0">
+      <div className="h-1 w-full bg-gradient-gold" />
       <Container className="grid grid-cols-2 gap-8 py-10 sm:grid-cols-4 sm:py-12">
         {trustBadges.map((badge) => {
           const Icon = badge.icon;
           return (
-            <div key={badge.label} className="flex items-center gap-3">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary-700">
+            <div
+              key={badge.label}
+              className="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-primary-50/60"
+            >
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary-700 shadow-soft ring-1 ring-primary-100 transition-transform duration-300 group-hover:-translate-y-0.5">
                 <Icon className="size-5" />
               </span>
               <span className="text-sm font-medium text-ink-700">{badge.label}</span>

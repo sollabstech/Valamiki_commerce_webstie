@@ -46,11 +46,14 @@ export function Newsletter() {
   };
 
   return (
-    <section className="relative overflow-hidden rounded-xl bg-primary-800 px-6 py-10 text-center sm:rounded-2xl sm:py-14">
-      <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(circle_at_50%_0%,white_1px,transparent_1px)] [background-size:20px_20px]" />
+    <section className="relative overflow-hidden rounded-2xl bg-gradient-navy px-6 py-10 text-center shadow-elevated ring-1 ring-secondary-500/30 sm:py-14">
+      <div className="pointer-events-none absolute inset-2 rounded-[1.1rem] ring-1 ring-inset ring-secondary-500/20" />
+      <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(circle_at_50%_0%,white_1px,transparent_1px)] [background-size:20px_20px]" />
+      <div className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-secondary-500/30 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -left-10 size-52 rounded-full bg-primary-400/25 blur-3xl" />
       <div className="relative mx-auto max-w-md">
-        <span className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-secondary-500">
-          <Mail className="size-5.5 text-primary-900" />
+        <span className="gloss mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-gradient-gold shadow-gold ring-1 ring-white/40">
+          <Mail className="relative z-[2] size-5.5 text-primary-900" />
         </span>
         <h2 className="font-display text-xl font-bold text-white sm:text-2xl">
           Get offers before anyone else

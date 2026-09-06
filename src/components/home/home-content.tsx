@@ -1,6 +1,7 @@
 "use client";
 
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { useCatalog } from "@/hooks/use-catalog";
 import { HeroBanner } from "@/components/home/hero-banner";
 import { CategoryGrid } from "@/components/home/category-grid";
@@ -26,29 +27,40 @@ export function HomeContent() {
       </Container>
 
       <Container>
-        <CategoryGrid />
+        <Reveal as="section">
+          <CategoryGrid />
+        </Reveal>
       </Container>
 
       <Container>
-        <ProductRail title="Featured Products" subtitle="Hand-picked for you" products={featured} viewAllHref="/category/all?filter=featured" />
+        <Reveal as="section">
+          <ProductRail title="Featured Products" subtitle="Hand-picked for you" products={featured} viewAllHref="/category/all?filter=featured" />
+        </Reveal>
       </Container>
 
       <Container>
-        <ProductRail title="Best Sellers" subtitle="Loved by shoppers across Salem" products={bestsellers} viewAllHref="/category/all?filter=bestsellers" />
+        <Reveal as="section">
+          <ProductRail title="Best Sellers" subtitle="Loved by shoppers across Salem" products={bestsellers} viewAllHref="/category/all?filter=bestsellers" />
+        </Reveal>
       </Container>
 
       <Container>
-        <ProductRail title="New Arrivals" subtitle="Freshly added to our catalog" products={newArrivals} viewAllHref="/category/all?filter=new" />
+        <Reveal as="section">
+          <ProductRail title="New Arrivals" subtitle="Freshly added to our catalog" products={newArrivals} viewAllHref="/category/all?filter=new" />
+        </Reveal>
       </Container>
 
       <Container>
-        <Testimonials />
+        <Reveal as="section">
+          <Testimonials />
+        </Reveal>
       </Container>
 
       <Container>
-        <Newsletter />
+        <Reveal as="section">
+          <Newsletter />
+        </Reveal>
       </Container>
-
     </div>
   );
 }

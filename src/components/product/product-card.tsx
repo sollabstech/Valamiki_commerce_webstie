@@ -29,7 +29,7 @@ export function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-lg bg-surface shadow-soft ring-1 ring-border transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated">
+    <div className="glass-card group relative flex flex-col overflow-hidden rounded-lg transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-elevated hover:ring-1 hover:ring-secondary-400/50">
       <div className="relative">
         <Link href={`/product/${product.id}`} className="relative block aspect-square overflow-hidden">
           <ProductImage
@@ -68,7 +68,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="flex flex-1 flex-col gap-1.5 p-3">
         <p className="text-xs font-medium text-ink-500">{product.categoryName}</p>
         <Link href={`/product/${product.id}`}>
-          <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-semibold text-ink-900 hover:text-primary-700">
+          <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-semibold text-ink-900 transition-colors hover:text-secondary-700">
             {product.name}
           </h3>
         </Link>
@@ -81,7 +81,7 @@ export function ProductCard({ product }: { product: Product }) {
 
         <div className="mt-1 flex items-center justify-between gap-2">
           <div className="flex items-baseline gap-1.5">
-            <span className="text-base font-bold text-ink-900">{formatPrice(price)}</span>
+            <span className="text-base font-extrabold text-secondary-700">{formatPrice(price)}</span>
             {discounted && (
               <span className="text-xs text-ink-300 line-through">
                 {formatPrice(product.price)}
@@ -94,8 +94,8 @@ export function ProductCard({ product }: { product: Product }) {
             onClick={handleAddToCart}
             disabled={product.stock <= 0}
             className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-full text-white shadow-soft transition-all hover:shadow-medium active:scale-95 disabled:opacity-50",
-              justAdded ? "bg-success" : "bg-primary-700 hover:bg-primary-800"
+              "flex size-9 shrink-0 items-center justify-center rounded-full text-white shadow-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-elevated active:scale-95 disabled:opacity-50",
+              justAdded ? "bg-success" : "bg-gradient-navy hover:brightness-110"
             )}
           >
             {justAdded ? <Check className="size-4.5" /> : <Plus className="size-4.5" />}

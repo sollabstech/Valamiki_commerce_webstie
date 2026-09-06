@@ -33,16 +33,16 @@ export function ProductRail({
         <button
           aria-label="Scroll left"
           onClick={() => scrollByAmount(-1)}
-          className="absolute -left-3 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-medium ring-1 ring-border hover:scale-105"
+          className="absolute -left-4 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full glass shadow-elevated ring-1 ring-secondary-500/20 transition-all duration-300 hover:-translate-x-0.5 hover:scale-110 hover:ring-2 hover:ring-secondary-400/60 active:scale-95"
         >
-          <ChevronLeft className="size-4.5 text-ink-900" />
+          <ChevronLeft className="size-5 text-primary-700" />
         </button>
         <button
           aria-label="Scroll right"
           onClick={() => scrollByAmount(1)}
-          className="absolute -right-3 top-1/2 z-10 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-medium ring-1 ring-border hover:scale-105"
+          className="absolute -right-4 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full glass shadow-elevated ring-1 ring-secondary-500/20 transition-all duration-300 hover:translate-x-0.5 hover:scale-110 hover:ring-2 hover:ring-secondary-400/60 active:scale-95"
         >
-          <ChevronRight className="size-4.5 text-ink-900" />
+          <ChevronRight className="size-5 text-primary-700" />
         </button>
       </div>
 

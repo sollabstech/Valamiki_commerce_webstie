@@ -8,8 +8,16 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  onSnapshot,
+  serverTimestamp,
+} from "firebase/firestore";
 import { getDb } from "@/lib/firebase";
+import { useAuth } from "@/hooks/use-auth";
 import type { Order } from "@/types/firestore";
 
 type OrderInput = Omit<Order, "id" | "createdAt" | "orderStatus"> & {
@@ -33,10 +41,30 @@ function reviveOrder(order: Order): Order {
   };
 }
 
+/** Firestore doc -> Order, coping with Timestamp | string | Date shapes. */
+function fromFirestore(data: Record<string, unknown>, docId: string): Order {
+  const toDate = (v: unknown): Date | undefined => {
+    if (!v) return undefined;
+    if (typeof (v as { toDate?: () => Date }).toDate === "function") {
+      return (v as { toDate: () => Date }).toDate();
+    }
+    const d = new Date(v as string | number | Date);
+    return isNaN(d.getTime()) ? undefined : d;
+  };
+  return {
+    ...(data as unknown as Order),
+    id: (data.id as string) || docId,
+    createdAt: toDate(data.createdAt) ?? new Date(),
+    updatedAt: toDate(data.updatedAt),
+  };
+}
+
 export function OrdersProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
+  // Instant paint / offline: load whatever this browser saved last time.
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
@@ -55,6 +83,32 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
   }, [orders, hydrated]);
 
+  // Live source of truth: this user's orders in Firestore. Picks up status
+  // changes (shipped / delivered / cancelled) made from the admin panel.
+  useEffect(() => {
+    const db = getDb();
+    if (!db || !user?.uid) return;
+
+    const q = query(collection(db, "orders"), where("userId", "==", user.uid));
+    const unsub = onSnapshot(
+      q,
+      (snap) => {
+        const remote = snap.docs.map((d) => fromFirestore(d.data(), d.id));
+        setOrders((prev) => {
+          const remoteIds = new Set(remote.map((o) => o.id));
+          const localOnly = prev.filter((o) => !remoteIds.has(o.id));
+          return [...remote, ...localOnly].sort(
+            (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+          );
+        });
+      },
+      () => {
+        // offline / rules error — keep the cached orders
+      }
+    );
+    return unsub;
+  }, [user?.uid]);
+
   const placeOrder = (input: OrderInput) => {
     const order: Order = {
       ...input,
@@ -64,7 +118,7 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     };
     setOrders((prev) => [order, ...prev]);
 
-    // Save to Firestore so admin can see it
+    // Save to Firestore so the admin can see it (and so status updates flow back).
     const db = getDb();
     if (db) {
       addDoc(collection(db, "orders"), {

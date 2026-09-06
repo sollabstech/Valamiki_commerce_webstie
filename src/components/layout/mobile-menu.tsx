@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, User, Heart, Package, MapPin, Phone } from "lucide-react";
+import { Menu, User, Heart, Package, MapPin, Phone, Tag } from "lucide-react";
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
-import { categories } from "@/config/nav";
 import { siteConfig } from "@/config/site";
 import { Logo } from "@/components/layout/logo";
+import { useCategories } from "@/hooks/use-categories";
 
 export function MobileMenu() {
+  const categories = useCategories();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -29,22 +31,28 @@ export function MobileMenu() {
             Shop by category
           </p>
           <ul className="mb-4 space-y-1">
-            {categories.map((category) => {
-              const Icon = category.icon;
-              return (
-                <li key={category.id}>
-                  <SheetClose asChild>
-                    <Link
-                      href={`/category/${category.id}`}
-                      className="flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm font-medium text-ink-900 hover:bg-primary-50"
-                    >
-                      <Icon className="size-4.5 text-primary-700" />
-                      {category.name}
-                    </Link>
-                  </SheetClose>
-                </li>
-              );
-            })}
+            {categories.map((category) => (
+              <li key={category.id}>
+                <SheetClose asChild>
+                  <Link
+                    href={`/category/${category.id}`}
+                    className="flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm font-medium text-ink-900 hover:bg-primary-50"
+                  >
+                    <span className="flex size-5 shrink-0 items-center justify-center text-primary-700">
+                      {category.icon?.startsWith("http") ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={category.icon} alt="" className="size-5 rounded object-cover" />
+                      ) : category.icon ? (
+                        <span className="text-base leading-none">{category.icon}</span>
+                      ) : (
+                        <Tag className="size-4.5" />
+                      )}
+                    </span>
+                    {category.name}
+                  </Link>
+                </SheetClose>
+              </li>
+            ))}
           </ul>
 
           <div className="mb-4 h-px bg-border" />

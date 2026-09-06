@@ -4,19 +4,20 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-cream active:scale-[0.98]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold transition-all duration-300 ease-out will-change-transform disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-cream active:scale-[0.97]",
   {
     variants: {
       variant: {
         primary:
-          "bg-primary-700 text-white shadow-soft hover:bg-primary-800 hover:shadow-medium",
+          "bg-gradient-navy text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),var(--shadow-medium)] ring-1 ring-inset ring-white/10 hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.25),var(--shadow-elevated)] hover:ring-secondary-400/40 active:translate-y-0",
         secondary:
-          "bg-secondary-500 text-primary-900 shadow-soft hover:bg-secondary-600 hover:shadow-medium",
+          "bg-gradient-gold text-primary-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.55),var(--shadow-gold)] ring-1 ring-inset ring-white/40 hover:-translate-y-0.5 hover:brightness-[1.03] hover:ring-2 hover:ring-secondary-200/70 active:translate-y-0",
         outline:
-          "border border-border-strong bg-transparent text-ink-900 hover:bg-white hover:border-primary-300",
+          "glass-gold border border-secondary-500/40 text-ink-900 hover:-translate-y-0.5 hover:border-secondary-500/70 hover:shadow-soft active:translate-y-0",
         ghost: "bg-transparent text-ink-900 hover:bg-primary-50",
         link: "text-primary-700 underline-offset-4 hover:underline p-0 h-auto",
-        destructive: "bg-error text-white hover:bg-error/90 shadow-soft",
+        destructive:
+          "bg-error text-white shadow-soft hover:bg-error/90 hover:-translate-y-0.5 active:translate-y-0",
       },
       size: {
         sm: "h-9 px-3.5 text-sm rounded-md",

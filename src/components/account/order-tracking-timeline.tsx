@@ -8,19 +8,10 @@ const steps: { status: OrderStatus; label: string; icon: typeof Circle }[] = [
   { status: "delivered", label: "Delivered", icon: PackageCheck },
 ];
 
-/** Simulates progression for demo orders that don't yet have live logistics
- * updates from the admin panel — swap for the real `orderStatus` once
- * the admin dashboard writes status changes to this order. */
-function simulateStatus(order: Order): OrderStatus {
-  if (order.orderStatus === "cancelled") return "cancelled";
-  const hoursSince = (Date.now() - order.createdAt.getTime()) / (1000 * 60 * 60);
-  if (hoursSince < 6) return "confirmed";
-  if (hoursSince < 24) return "shipped";
-  return "delivered";
-}
-
 export function OrderTrackingTimeline({ order }: { order: Order }) {
-  const currentStatus = simulateStatus(order);
+  // Live status from Firestore, set by the admin panel
+  // (pending | confirmed | shipped | delivered | cancelled).
+  const currentStatus: OrderStatus = order.orderStatus ?? "pending";
 
   if (currentStatus === "cancelled") {
     return (
@@ -58,7 +49,9 @@ export function OrderTrackingTimeline({ order }: { order: Order }) {
                 {step.label}
               </p>
               {i === currentIndex && (
-                <p className="text-xs text-ink-500">Updated {formatDate(order.createdAt)}</p>
+                <p className="text-xs text-ink-500">
+                  Updated {formatDate(order.updatedAt ?? order.createdAt)}
+                </p>
               )}
             </div>
           </div>

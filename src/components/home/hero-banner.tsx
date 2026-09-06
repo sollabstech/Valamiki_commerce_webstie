@@ -47,25 +47,29 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
   if (banners.length === 0) return null;
 
   return (
-    <div className="relative">
-      <div className="overflow-hidden rounded-xl sm:rounded-2xl" ref={emblaRef}>
+    <div className="relative rounded-[1.05rem] bg-gradient-gold p-[3px] shadow-elevated sm:rounded-[1.55rem]">
+      <div
+        className="overflow-hidden rounded-[0.9rem] ring-1 ring-black/10 sm:rounded-[1.4rem]"
+        ref={emblaRef}
+      >
         <div className="flex">
           {banners.map((banner, i) => (
             <div key={banner.id} className="relative min-w-0 flex-[0_0_100%]">
-              <Link href={bannerHref(banner)} className="relative block aspect-[16/9] sm:aspect-[21/9]">
+              <Link href={bannerHref(banner)} className="group relative block aspect-[16/9] overflow-hidden sm:aspect-[21/9]">
                 {banner.imageUrl ? (
                   <Image
                     src={banner.imageUrl}
                     alt={banner.title}
                     fill
                     priority={i === 0}
-                    className="object-cover"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 ) : (
                   <div className={cn("absolute inset-0 bg-gradient-to-br", gradients[i % gradients.length])}>
                     <div className="absolute inset-0 opacity-10 [background-image:radial-gradient(circle_at_20%_20%,white_1px,transparent_1px)] [background-size:24px_24px]" />
                   </div>
                 )}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary-900/60 via-primary-900/15 to-transparent" />
                 <div className="absolute inset-0 flex flex-col items-start justify-center gap-3 p-6 sm:p-12">
                   <motion.h2
                     initial={{ opacity: 0, y: 16 }}
