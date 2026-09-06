@@ -46,7 +46,7 @@ export function CouponInput() {
             value={code}
             onChange={(e) => setCode(e.target.value.toUpperCase())}
             placeholder="Enter coupon code"
-            className="h-10 w-full rounded-lg border border-border-strong bg-white pl-9 pr-3 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+            className="h-10 w-full rounded-lg border border-border-strong bg-surface pl-9 pr-3 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
           />
         </div>
         <button

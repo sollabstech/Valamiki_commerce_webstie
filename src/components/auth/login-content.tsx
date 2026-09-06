@@ -41,7 +41,7 @@ export function LoginContent() {
               type="button"
               onClick={handleGoogle}
               disabled={googleLoading}
-              className="flex h-12 w-full items-center justify-center gap-2.5 rounded-lg border border-border-strong bg-white text-sm font-semibold text-ink-900 transition-colors hover:bg-cream-100 disabled:opacity-60"
+              className="flex h-12 w-full items-center justify-center gap-2.5 rounded-lg border border-border-strong bg-surface text-sm font-semibold text-ink-900 transition-colors hover:bg-cream-100 disabled:opacity-60"
             >
               <svg viewBox="0 0 24 24" className="size-4.5">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -55,8 +55,8 @@ export function LoginContent() {
 
           <p className="mt-5 text-center text-xs text-ink-500">
             By continuing, you agree to our{" "}
-            <a href="/terms" className="underline hover:text-primary-700">Terms</a> &{" "}
-            <a href="/privacy" className="underline hover:text-primary-700">Privacy Policy</a>.
+            <a href="/terms" className="underline hover:text-secondary-600">Terms</a> &{" "}
+            <a href="/privacy" className="underline hover:text-secondary-600">Privacy Policy</a>.
           </p>
         </div>
       </div>

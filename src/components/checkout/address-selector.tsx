@@ -80,7 +80,7 @@ export function AddressSelector({
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 text-sm font-semibold text-primary-700 hover:text-primary-800"
+          className="flex items-center gap-2 text-sm font-semibold text-primary-700 hover:text-secondary-700"
         >
           <Plus className="size-4" /> Add new address
         </button>

@@ -30,7 +30,7 @@ export function GiftWrapOption() {
           onChange={(e) => setGiftMessage(e.target.value.slice(0, 200))}
           placeholder="Add a gift message (optional)"
           rows={2}
-          className="mt-3 w-full resize-none rounded-lg border border-border-strong bg-white p-3 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+          className="mt-3 w-full resize-none rounded-lg border border-border-strong bg-surface p-3 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
         />
       )}
     </div>

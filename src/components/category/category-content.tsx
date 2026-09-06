@@ -68,7 +68,7 @@ export function CategoryContent({ categoryId }: { categoryId: string }) {
   return (
     <Container className="py-6 sm:py-8">
       <nav className="mb-4 flex items-center gap-1.5 text-sm text-ink-500">
-        <Link href="/" className="hover:text-primary-700">Home</Link>
+        <Link href="/" className="hover:text-secondary-600">Home</Link>
         <ChevronRight className="size-3.5" />
         <span className="font-medium text-ink-900">{heading}</span>
       </nav>
@@ -86,7 +86,7 @@ export function CategoryContent({ categoryId }: { categoryId: string }) {
             <SheetTrigger asChild>
               <button
                 type="button"
-                className="flex h-10 items-center gap-2 rounded-lg border border-border-strong bg-white px-3.5 text-sm font-medium text-ink-900 lg:hidden"
+                className="flex h-10 items-center gap-2 rounded-lg border border-border-strong bg-surface px-3.5 text-sm font-medium text-ink-900 lg:hidden"
               >
                 <SlidersHorizontal className="size-4" />
                 Filters

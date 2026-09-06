@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, Plus, Check } from "lucide-react";
+import { Heart, ShoppingCart, Check } from "lucide-react";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { ProductImage } from "@/components/product/product-image";
@@ -20,6 +20,7 @@ export function ProductCard({ product }: { product: Product }) {
   const discounted = hasDiscount(product);
   const price = effectivePrice(product);
   const isNew = isRecentlyAdded(product);
+  const outOfStock = product.stock <= 0;
 
   const handleAddToCart = () => {
     addItem(product);
@@ -29,23 +30,26 @@ export function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <div className="glass-card group relative flex flex-col overflow-hidden rounded-lg transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-elevated hover:ring-1 hover:ring-secondary-400/50">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface shadow-soft transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-secondary-500/50 hover:shadow-elevated">
       <div className="relative">
-        <Link href={`/product/${product.id}`} className="relative block aspect-square overflow-hidden">
+        <Link
+          href={`/product/${product.id}`}
+          className="relative block aspect-square overflow-hidden bg-cream-100"
+        >
           <ProductImage
             src={product.images[0]}
             alt={product.name}
             categoryId={product.categoryId}
-            className="size-full transition-transform duration-500 group-hover:scale-110"
+            className="size-full transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute left-2 top-2 flex flex-col gap-1.5">
+          <div className="absolute left-2 top-2 flex flex-col items-start gap-1">
             {product.isFlashDeal && <Badge variant="deal">Flash Deal</Badge>}
-            {isNew && <Badge variant="secondary">New</Badge>}
-            {product.isPopular && <Badge variant="primary">Bestseller</Badge>}
+            {isNew && <Badge variant="primary">New</Badge>}
+            {product.isPopular && <Badge variant="solid">Bestseller</Badge>}
           </div>
           {discounted && (
-            <div className="absolute right-2 top-2 rounded-full bg-error px-2 py-1 text-xs font-bold text-white shadow-soft">
-              {product.discountPercent}% OFF
+            <div className="absolute right-2 top-2">
+              <Badge variant="error">{product.discountPercent}% Off</Badge>
             </div>
           )}
         </Link>
@@ -54,7 +58,7 @@ export function ProductCard({ product }: { product: Product }) {
           type="button"
           aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
           onClick={() => toggle(product.id)}
-          className="absolute right-2 bottom-2 z-10 flex size-9 items-center justify-center rounded-full bg-white/90 shadow-soft backdrop-blur transition-transform hover:scale-110 active:scale-95"
+          className="absolute bottom-2 right-2 z-10 flex size-9 items-center justify-center rounded-full border border-border bg-surface/95 shadow-soft backdrop-blur transition-transform hover:scale-110 active:scale-95"
         >
           <Heart
             className={cn(
@@ -65,45 +69,55 @@ export function ProductCard({ product }: { product: Product }) {
         </button>
       </div>
 
-      <div className="flex flex-1 flex-col gap-1.5 p-3">
-        <p className="text-xs font-medium text-ink-500">{product.categoryName}</p>
+      <div className="flex flex-1 flex-col gap-1.5 p-3.5">
+        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-secondary-600">
+          {product.categoryName}
+        </p>
         <Link href={`/product/${product.id}`}>
-          <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-semibold text-ink-900 transition-colors hover:text-secondary-700">
+          <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-semibold text-ink-900 transition-colors group-hover:text-secondary-600">
             {product.name}
           </h3>
         </Link>
-        <p className="text-xs text-ink-500">{product.unit}</p>
 
         <div className="flex items-center gap-1.5">
           <RatingStars rating={product.rating} />
           <span className="text-xs text-ink-500">({product.reviewCount})</span>
         </div>
 
-        <div className="mt-1 flex items-center justify-between gap-2">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-base font-extrabold text-secondary-700">{formatPrice(price)}</span>
-            {discounted && (
-              <span className="text-xs text-ink-300 line-through">
-                {formatPrice(product.price)}
-              </span>
-            )}
-          </div>
-          <button
-            type="button"
-            aria-label="Add to cart"
-            onClick={handleAddToCart}
-            disabled={product.stock <= 0}
-            className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-full text-white shadow-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-elevated active:scale-95 disabled:opacity-50",
-              justAdded ? "bg-success" : "bg-gradient-navy hover:brightness-110"
-            )}
-          >
-            {justAdded ? <Check className="size-4.5" /> : <Plus className="size-4.5" />}
-          </button>
+        <div className="mt-1 flex items-baseline gap-1.5">
+          <span className="font-display text-lg font-bold text-secondary-600">
+            {formatPrice(price)}
+          </span>
+          {discounted && (
+            <span className="text-xs text-ink-300 line-through">
+              {formatPrice(product.price)}
+            </span>
+          )}
         </div>
-        {product.stock <= 0 && (
-          <span className="text-xs font-medium text-error">Out of stock</span>
-        )}
+
+        <button
+          type="button"
+          onClick={handleAddToCart}
+          disabled={outOfStock}
+          className={cn(
+            "mt-2.5 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-md text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-300 disabled:opacity-50",
+            justAdded
+              ? "bg-success text-white"
+              : "bg-gradient-gold text-on-accent shadow-gold ring-1 ring-inset ring-white/25 hover:brightness-105 hover:-translate-y-0.5"
+          )}
+        >
+          {justAdded ? (
+            <>
+              <Check className="size-4" /> Added
+            </>
+          ) : outOfStock ? (
+            "Out of stock"
+          ) : (
+            <>
+              <ShoppingCart className="size-4" /> Add to cart
+            </>
+          )}
+        </button>
       </div>
     </div>
   );

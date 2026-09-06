@@ -31,7 +31,7 @@ export function ProfileContent() {
 
   return (
     <Container className="py-6 sm:py-8">
-      <Link href="/account" className="mb-4 flex items-center gap-1.5 text-sm font-medium text-ink-500 hover:text-primary-700">
+      <Link href="/account" className="mb-4 flex items-center gap-1.5 text-sm font-medium text-ink-500 hover:text-secondary-600">
         <ChevronLeft className="size-4" /> Back to Account
       </Link>
 
@@ -45,7 +45,7 @@ export function ProfileContent() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
-              className="h-11 w-full rounded-lg border border-border-strong bg-white px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+              className="h-11 w-full rounded-lg border border-border-strong bg-surface px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
             />
           </div>
           <div>
@@ -55,7 +55,7 @@ export function ProfileContent() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="h-11 w-full rounded-lg border border-border-strong bg-white px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+              className="h-11 w-full rounded-lg border border-border-strong bg-surface px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
             />
             <p className="mt-1 text-xs text-ink-500">Changing email requires re-verification (not enabled in this demo).</p>
           </div>

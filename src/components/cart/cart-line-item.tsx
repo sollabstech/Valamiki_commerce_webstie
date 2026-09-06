@@ -26,7 +26,7 @@ export function CartLineItem({ product, quantity }: { product: Product; quantity
       <div className="flex flex-1 flex-col">
         <div className="flex justify-between gap-2">
           <div>
-            <Link href={`/product/${product.id}`} className="text-sm font-semibold text-ink-900 hover:text-primary-700 sm:text-base">
+            <Link href={`/product/${product.id}`} className="text-sm font-semibold text-ink-900 hover:text-secondary-600 sm:text-base">
               {product.name}
             </Link>
             <p className="mt-0.5 text-xs text-ink-500">{product.unit}</p>

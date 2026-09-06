@@ -21,7 +21,7 @@ export function MobileBottomNav() {
   ];
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border/70 bg-white/80 pb-[env(safe-area-inset-bottom)] shadow-[0_-6px_24px_-8px_rgba(14,59,92,0.16)] backdrop-blur-xl backdrop-saturate-150 md:hidden">
+    <nav className="section-dark glass-dark fixed inset-x-0 bottom-0 z-30 border-t border-secondary-500/25 pb-[env(safe-area-inset-bottom)] md:hidden">
       <ul className="grid grid-cols-5">
         {items.map((item) => {
           const active = pathname === item.href;
@@ -30,28 +30,35 @@ export function MobileBottomNav() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="relative flex flex-col items-center gap-0.5 py-2.5 text-ink-500 transition-transform active:scale-90"
+                className="relative flex flex-col items-center gap-0.5 py-2.5 transition-transform active:scale-90"
               >
                 <span
                   className={cn(
                     "relative rounded-full px-3 py-1 transition-colors duration-300",
-                    active && "bg-primary-50"
+                    active && "bg-white/10"
                   )}
                 >
                   <Icon
                     className={cn(
                       "size-5.5 transition-transform duration-300",
-                      active ? "fill-primary-100 text-primary-700 -translate-y-px" : "text-ink-500"
+                      active
+                        ? "-translate-y-px fill-secondary-500/25 text-secondary-300"
+                        : "text-on-dark-muted"
                     )}
                     strokeWidth={active ? 2.25 : 1.75}
                   />
                   {!!item.badge && item.badge > 0 && (
-                    <span className="absolute -right-1.5 -top-1.5 flex size-4 items-center justify-center rounded-full bg-secondary-500 text-[9px] font-bold text-primary-900">
+                    <span className="absolute -right-1.5 -top-1.5 flex size-4 items-center justify-center rounded-full bg-gradient-gold text-[9px] font-bold text-on-accent">
                       {item.badge > 9 ? "9+" : item.badge}
                     </span>
                   )}
                 </span>
-                <span className={cn("text-[11px] font-medium", active ? "text-primary-700" : "text-ink-500")}>
+                <span
+                  className={cn(
+                    "text-[11px] font-medium",
+                    active ? "text-secondary-300" : "text-on-dark-muted"
+                  )}
+                >
                   {item.label}
                 </span>
                 {active && (

@@ -45,7 +45,7 @@ export function AddressForm({
           value={values.name}
           onChange={(e) => update("name", e.target.value)}
           placeholder="Full name"
-          className="h-11 rounded-lg border border-border-strong bg-white px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+          className="h-11 rounded-lg border border-border-strong bg-surface px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
         />
         <input
           required
@@ -53,7 +53,7 @@ export function AddressForm({
           onChange={(e) => update("phone", e.target.value.replace(/\D/g, "").slice(0, 10))}
           placeholder="Phone number"
           inputMode="numeric"
-          className="h-11 rounded-lg border border-border-strong bg-white px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+          className="h-11 rounded-lg border border-border-strong bg-surface px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
         />
       </div>
       <input
@@ -61,13 +61,13 @@ export function AddressForm({
         value={values.street}
         onChange={(e) => update("street", e.target.value)}
         placeholder="House no., street, area"
-        className="h-11 rounded-lg border border-border-strong bg-white px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+        className="h-11 rounded-lg border border-border-strong bg-surface px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
       />
       <input
         value={values.addressLine2 ?? ""}
         onChange={(e) => update("addressLine2", e.target.value)}
         placeholder="Landmark (optional)"
-        className="h-11 rounded-lg border border-border-strong bg-white px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+        className="h-11 rounded-lg border border-border-strong bg-surface px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
       />
       <div className="grid grid-cols-3 gap-3">
         <input
@@ -75,14 +75,14 @@ export function AddressForm({
           value={values.city}
           onChange={(e) => update("city", e.target.value)}
           placeholder="City"
-          className="h-11 rounded-lg border border-border-strong bg-white px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+          className="h-11 rounded-lg border border-border-strong bg-surface px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
         />
         <input
           required
           value={values.state}
           onChange={(e) => update("state", e.target.value)}
           placeholder="State"
-          className="h-11 rounded-lg border border-border-strong bg-white px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+          className="h-11 rounded-lg border border-border-strong bg-surface px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
         />
         <input
           required
@@ -90,7 +90,7 @@ export function AddressForm({
           onChange={(e) => update("pincode", e.target.value.replace(/\D/g, "").slice(0, 6))}
           placeholder="Pincode"
           inputMode="numeric"
-          className="h-11 rounded-lg border border-border-strong bg-white px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+          className="h-11 rounded-lg border border-border-strong bg-surface px-3.5 text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
         />
       </div>
 

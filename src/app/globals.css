@@ -2,75 +2,84 @@
 @import "tw-animate-css";
 
 :root {
-  /* Brand — extracted from the Valmiki logo */
-  --color-primary-50: #eef4f8;
-  --color-primary-100: #d7e6ef;
-  --color-primary-200: #afcbdd;
-  --color-primary-300: #87b1cc;
-  --color-primary-400: #5f96ba;
-  --color-primary-500: #3a759b;
-  --color-primary-600: #1f5678;
-  --color-primary-700: #0e3b5c;
-  --color-primary-800: #0a2e48;
-  --color-primary-900: #071f32;
+  /* ── Warm near-black (was navy) — used for text on cream + dark chips ── */
+  --color-primary-50: #f3eee4;
+  --color-primary-100: #e6ddc8;
+  --color-primary-200: #cabf9f;
+  --color-primary-300: #a89a76;
+  --color-primary-400: #6f6552;
+  --color-primary-500: #453f34;
+  --color-primary-600: #2d2921;
+  --color-primary-700: #1b1811;
+  --color-primary-800: #131009;
+  --color-primary-900: #0c0a06;
 
-  /* Royal gold — metallic, deeper and richer than amber */
-  --color-secondary-50: #fdf7e6;
-  --color-secondary-100: #f8ecc6;
-  --color-secondary-200: #efd892;
-  --color-secondary-300: #e4c261;
-  --color-secondary-400: #d6ab3f;
-  --color-secondary-500: #c69b2e;
-  --color-secondary-600: #a87f22;
-  --color-secondary-700: #86641b;
-  --color-secondary-800: #654b15;
-  --color-secondary-900: #453310;
+  /* ── Champagne gold — the accent ── */
+  --color-secondary-50: #faf4e8;
+  --color-secondary-100: #f2e6ce;
+  --color-secondary-200: #e6d0a5;
+  --color-secondary-300: #dabb82;
+  --color-secondary-400: #d0ac6a;
+  --color-secondary-500: #c49a54;
+  --color-secondary-600: #a87f3c;
+  --color-secondary-700: #856530;
+  --color-secondary-800: #634b26;
+  --color-secondary-900: #43331b;
 
-  --color-accent: #e9c86a;
+  --color-accent: #d8bd88;
+  --color-on-accent: #17130b;
 
-  --color-cream: #f7f5f1;
-  --color-cream-100: #fbfaf8;
-  --color-surface: #ffffff;
+  /* ── Cream base ── */
+  --color-cream: #f4efe4;
+  --color-cream-100: #faf6ec;
+  --color-surface: #fffdf8;
 
-  --color-ink-900: #132a3a;
-  --color-ink-700: #33475a;
-  --color-ink-500: #5b6b76;
-  --color-ink-300: #a9b4bc;
+  /* ── Dark sections ── */
+  --color-dark-900: #100e0a;
+  --color-dark-800: #17140e;
+  --color-dark-700: #201c14;
+  --color-dark-600: #2c2619;
+  --color-on-dark: #f2ece0;
+  --color-on-dark-muted: #b8afa0;
+  --color-dark-border: #2f2a1f;
 
-  --color-border: #e7e3da;
-  --color-border-strong: #d8d2c4;
+  /* ── Text on cream (warm near-black) ── */
+  --color-ink-900: #1a1610;
+  --color-ink-700: #3d372c;
+  --color-ink-500: #6b6353;
+  --color-ink-300: #a49a86;
 
-  --color-success: #1f8a4c;
-  --color-success-bg: #e8f5ec;
-  --color-error: #d64545;
-  --color-error-bg: #fdebeb;
+  --color-border: #e4dcca;
+  --color-border-strong: #d3c8ae;
 
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 18px;
-  --radius-xl: 26px;
+  --color-success: #3f7d4f;
+  --color-success-bg: #e9f2e7;
+  --color-error: #c0472f;
+  --color-error-bg: #f8e9e4;
 
-  /* Layered, navy-tinted shadows for a deep 3D feel */
-  --shadow-soft: 0 1px 2px rgba(14, 59, 92, 0.07), 0 6px 16px rgba(14, 59, 92, 0.09);
-  --shadow-medium: 0 3px 8px rgba(14, 59, 92, 0.1), 0 18px 38px rgba(14, 59, 92, 0.15);
-  --shadow-elevated: 0 10px 24px rgba(14, 59, 92, 0.14), 0 40px 72px rgba(14, 59, 92, 0.24);
-  --shadow-gold: 0 2px 10px rgba(170, 130, 25, 0.32), 0 16px 36px rgba(170, 130, 25, 0.28);
-  --shadow-inset-top: inset 0 1px 0 rgba(255, 255, 255, 0.75);
-  --shadow-inset-3d: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 0 rgba(14, 59, 92, 0.06);
-  --ring-gold: 0 0 0 1px rgba(198, 155, 46, 0.55), 0 0 0 5px rgba(198, 155, 46, 0.12);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
 
-  /* Signature gradients */
-  --gradient-navy: linear-gradient(135deg, #1a5988 0%, #0e3b5c 52%, #08283f 100%);
-  /* Polished-brass sheen: champagne -> gold -> deep -> highlight -> champagne */
+  /* Warm-black shadows */
+  --shadow-soft: 0 1px 2px rgba(28, 22, 12, 0.06), 0 6px 16px rgba(28, 22, 12, 0.08);
+  --shadow-medium: 0 3px 8px rgba(28, 22, 12, 0.09), 0 18px 38px rgba(28, 22, 12, 0.14);
+  --shadow-elevated: 0 10px 24px rgba(28, 22, 12, 0.13), 0 40px 72px rgba(28, 22, 12, 0.22);
+  --shadow-gold: 0 2px 10px rgba(196, 154, 84, 0.35), 0 16px 36px rgba(196, 154, 84, 0.28);
+  --shadow-dark: 0 20px 50px rgba(0, 0, 0, 0.45);
+  --shadow-inset-3d: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(28, 22, 12, 0.05);
+
+  /* Champagne sheen */
   --gradient-gold: linear-gradient(
     135deg,
-    #f7e7b4 0%,
-    #dcb552 28%,
-    #b78a28 52%,
-    #e7cd7d 74%,
-    #f7e7b4 100%
+    #ecdcb6 0%,
+    #d4b47b 40%,
+    #b9944f 70%,
+    #e2c896 100%
   );
-  --gradient-gold-soft: linear-gradient(135deg, #e2c069 0%, #c69b2e 58%, #a67d20 100%);
+  --gradient-gold-soft: linear-gradient(135deg, #dcc08a 0%, #c49a54 60%, #a87f3c 100%);
+  --gradient-dark: linear-gradient(160deg, #201c14 0%, #14110b 55%, #0d0b07 100%);
 }
 
 @theme inline {
@@ -99,10 +108,19 @@
   --color-secondary: var(--color-secondary-500);
 
   --color-accent: var(--color-accent);
+  --color-on-accent: var(--color-on-accent);
 
   --color-cream: var(--color-cream);
   --color-cream-100: var(--color-cream-100);
   --color-surface: var(--color-surface);
+
+  --color-dark-900: var(--color-dark-900);
+  --color-dark-800: var(--color-dark-800);
+  --color-dark-700: var(--color-dark-700);
+  --color-dark-600: var(--color-dark-600);
+  --color-on-dark: var(--color-on-dark);
+  --color-on-dark-muted: var(--color-on-dark-muted);
+  --color-dark-border: var(--color-dark-border);
 
   --color-ink-900: var(--color-ink-900);
   --color-ink-700: var(--color-ink-700);
@@ -129,9 +147,11 @@
   --shadow-medium: var(--shadow-medium);
   --shadow-elevated: var(--shadow-elevated);
   --shadow-gold: var(--shadow-gold);
+  --shadow-dark: var(--shadow-dark);
   --shadow-inset-3d: var(--shadow-inset-3d);
 
-  --font-display: var(--font-plus-jakarta-sans);
+  --font-display: var(--font-playfair);
+  --font-serif: var(--font-playfair);
   --font-sans: var(--font-inter);
 
   --animate-float: float 6s ease-in-out infinite;
@@ -143,20 +163,16 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-9px); }
 }
-
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
 
-/* Reveal-on-scroll — unlayered so the .is-visible end state always wins the
-   cascade. A transition (not an animation) means the final opacity is a plain
-   computed value; content can never get stuck hidden if a frame is missed. */
+/* Reveal-on-scroll — unlayered so .is-visible always wins the cascade. */
 .reveal {
   opacity: 0;
   transform: translateY(18px);
@@ -169,44 +185,64 @@
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }
 
-/* Glassmorphism — unlayered so backdrop-filter survives CSS processing */
+/* ── Dark / cream section bands (unlayered so they hold their palette) ── */
+.section-dark {
+  background: var(--color-dark-900);
+  color: var(--color-on-dark);
+  --color-border: var(--color-dark-border);
+  --color-surface: var(--color-dark-800);
+  --color-ink-900: var(--color-on-dark);
+  --color-ink-700: #d9d2c4;
+  --color-ink-500: var(--color-on-dark-muted);
+  --color-ink-300: #6f6656;
+  --color-cream: var(--color-dark-900);
+  --color-cream-100: var(--color-dark-800);
+  --color-primary-50: rgba(255, 255, 255, 0.06);
+  --color-primary-100: rgba(255, 255, 255, 0.1);
+}
+.section-dark ::selection { background: var(--color-secondary-500); color: #12100c; }
+
+.on-dark-grid {
+  background-image:
+    radial-gradient(60rem 30rem at 80% -10%, rgba(196, 154, 84, 0.14), transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: auto, 46px 46px, 46px 46px;
+}
+
+/* Glassmorphism — unlayered so backdrop-filter survives processing */
 .glass {
-  background-color: rgba(255, 255, 255, 0.62);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  backdrop-filter: blur(24px) saturate(190%);
+  background-color: rgba(255, 253, 248, 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
-.glass-dark {
-  background-color: rgba(14, 59, 92, 0.68);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  backdrop-filter: blur(22px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
 .glass-card {
-  background-color: rgba(255, 255, 255, 0.58);
-  -webkit-backdrop-filter: blur(16px) saturate(170%);
-  backdrop-filter: blur(16px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 253, 248, 0.66);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.66);
   box-shadow: var(--shadow-soft), var(--shadow-inset-3d);
 }
 .glass-gold {
-  background-color: rgba(245, 231, 180, 0.3);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
-  border: 1px solid rgba(198, 155, 46, 0.42);
+  background-color: rgba(216, 189, 136, 0.16);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(196, 154, 84, 0.4);
+}
+.glass-dark {
+  background-color: rgba(20, 17, 11, 0.6);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .glass,
-  .glass-card { background-color: rgba(255, 255, 255, 0.92); }
-  .glass-dark { background-color: rgba(14, 59, 92, 0.94); }
-  .glass-gold { background-color: rgba(245, 231, 180, 0.9); }
+  .glass, .glass-card { background-color: rgba(255, 253, 248, 0.95); }
+  .glass-gold { background-color: rgba(216, 189, 136, 0.6); }
+  .glass-dark { background-color: rgba(20, 17, 11, 0.94); }
 }
 
 @layer base {
@@ -224,15 +260,14 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     background-image:
-      radial-gradient(44rem 44rem at 10% -10%, rgba(198, 155, 46, 0.12), transparent 60%),
-      radial-gradient(48rem 48rem at 100% 0%, rgba(14, 59, 92, 0.07), transparent 55%),
-      radial-gradient(38rem 38rem at 90% 100%, rgba(198, 155, 46, 0.08), transparent 60%);
+      radial-gradient(46rem 46rem at 8% -12%, rgba(196, 154, 84, 0.14), transparent 60%),
+      radial-gradient(40rem 40rem at 100% 4%, rgba(28, 22, 12, 0.05), transparent 55%);
     background-attachment: fixed;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.005em;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -246,10 +281,9 @@
 }
 
 @layer utilities {
-  /* Brand gradients */
-  .bg-gradient-navy { background-image: var(--gradient-navy); }
   .bg-gradient-gold { background-image: var(--gradient-gold); }
   .bg-gradient-gold-soft { background-image: var(--gradient-gold-soft); }
+  .bg-gradient-dark { background-image: var(--gradient-dark); }
   .text-gradient-gold {
     background-image: var(--gradient-gold);
     -webkit-background-clip: text;
@@ -257,52 +291,31 @@
     color: transparent;
   }
 
-  .ring-gold { box-shadow: var(--ring-gold); }
+  /* Section eyebrow — small uppercase label above headings */
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-secondary-600);
+  }
+  .section-dark .eyebrow { color: var(--color-secondary-400); }
 
-  /* Soft 3D surface: lifts and deepens its shadow on hover */
   .card-3d {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-soft), var(--shadow-inset-3d);
+    box-shadow: var(--shadow-soft);
     transition: transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1),
       box-shadow 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
     will-change: transform;
   }
   .card-3d:hover {
     transform: translateY(-6px);
-    box-shadow: var(--shadow-elevated), var(--shadow-inset-3d),
-      0 0 0 1px rgba(198, 155, 46, 0.35);
+    box-shadow: var(--shadow-elevated), 0 0 0 1px rgba(196, 154, 84, 0.4);
   }
 
-  /* Diagonal top gloss for buttons / feature cards */
-  .gloss {
-    position: relative;
-    isolation: isolate;
-  }
-  .gloss::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.35) 0%,
-      rgba(255, 255, 255, 0.08) 42%,
-      rgba(255, 255, 255, 0) 60%
-    );
-    pointer-events: none;
-    z-index: 1;
-  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 }

@@ -141,9 +141,9 @@ export function ProductDetailContent({ productId }: { productId: string }) {
   return (
     <Container className="py-6 sm:py-8">
       <nav className="mb-4 flex items-center gap-1.5 text-sm text-ink-500">
-        <Link href="/" className="hover:text-primary-700">Home</Link>
+        <Link href="/" className="hover:text-secondary-600">Home</Link>
         <ChevronRight className="size-3.5" />
-        <Link href={`/category/${product.categoryId}`} className="hover:text-primary-700">
+        <Link href={`/category/${product.categoryId}`} className="hover:text-secondary-600">
           {product.categoryName}
         </Link>
         <ChevronRight className="size-3.5" />

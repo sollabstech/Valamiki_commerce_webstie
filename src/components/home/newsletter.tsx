@@ -46,43 +46,44 @@ export function Newsletter() {
   };
 
   return (
-    <section className="relative overflow-hidden rounded-2xl bg-gradient-navy px-6 py-10 text-center shadow-elevated ring-1 ring-secondary-500/30 sm:py-14">
-      <div className="pointer-events-none absolute inset-2 rounded-[1.1rem] ring-1 ring-inset ring-secondary-500/20" />
-      <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(circle_at_50%_0%,white_1px,transparent_1px)] [background-size:20px_20px]" />
-      <div className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-secondary-500/30 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-20 -left-10 size-52 rounded-full bg-primary-400/25 blur-3xl" />
-      <div className="relative mx-auto max-w-md">
-        <span className="gloss mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-gradient-gold shadow-gold ring-1 ring-white/40">
-          <Mail className="relative z-[2] size-5.5 text-primary-900" />
-        </span>
-        <h2 className="font-display text-xl font-bold text-white sm:text-2xl">
-          Get offers before anyone else
+    <div className="grid items-center gap-8 py-14 sm:py-20 lg:grid-cols-2">
+      <div>
+        <span className="eyebrow">Stay in the loop</span>
+        <h2 className="mt-3 font-display text-3xl font-semibold text-ink-900 sm:text-[2.4rem]">
+          Get the best deals first
         </h2>
-        <p className="mt-2 text-sm text-white/80">
-          Subscribe for flash deal alerts and new arrivals, straight to your inbox.
+        <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-500">
+          Join our list for flash-deal alerts, new arrivals and members-only
+          pricing — straight to your inbox. No spam, unsubscribe any time.
         </p>
-        <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-2.5 sm:flex-row">
+      </div>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+        <div className="relative flex-1 sm:max-w-sm">
+          <Mail className="pointer-events-none absolute left-4 top-1/2 size-4.5 -translate-y-1/2 text-ink-500" />
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
+            placeholder="Enter your email address"
             disabled={loading}
-            className="h-12 flex-1 rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder:text-white/60 outline-none focus:border-secondary-400 focus:ring-2 focus:ring-secondary-400/30 disabled:opacity-60"
+            className="h-12 w-full rounded-md border border-border bg-surface/80 pl-11 pr-4 text-sm text-ink-900 placeholder:text-ink-500 outline-none transition-colors focus:border-secondary-400 focus:ring-2 focus:ring-secondary-500/25 disabled:opacity-60"
           />
-          <Button type="submit" variant="secondary" size="lg" className="justify-center gap-2" disabled={loading}>
-            {loading ? (
-              <span className="flex items-center gap-2">
-                <span className="size-4 animate-spin rounded-full border-2 border-primary-900/30 border-t-primary-900" />
-                Subscribing...
-              </span>
-            ) : (
-              <><Send className="size-4" /> Subscribe</>
-            )}
-          </Button>
-        </form>
-      </div>
-    </section>
+        </div>
+        <Button type="submit" size="lg" className="justify-center gap-2" disabled={loading}>
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <span className="size-4 animate-spin rounded-full border-2 border-on-accent/30 border-t-on-accent" />
+              Subscribing
+            </span>
+          ) : (
+            <>
+              <Send className="size-4" /> Subscribe
+            </>
+          )}
+        </Button>
+      </form>
+    </div>
   );
 }

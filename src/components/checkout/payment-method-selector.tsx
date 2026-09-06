@@ -60,13 +60,13 @@ export function PaymentMethodSelector({
                       selected ? "border-primary-700 bg-primary-700" : "border-border-strong"
                     )}
                   >
-                    {selected && <span className="size-2 rounded-full bg-white" />}
+                    {selected && <span className="size-2 rounded-full bg-surface" />}
                   </span>
                 </button>
 
                 {/* UPI QR Panel — shown when UPI is selected */}
                 {method.value === "upi" && selected && (
-                  <div className="mt-2 rounded-xl border border-primary-200 bg-white p-5 text-center shadow-sm">
+                  <div className="mt-2 rounded-xl border border-primary-200 bg-surface p-5 text-center shadow-sm">
                     <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-ink-500">Scan &amp; Pay</p>
                     <p className="mb-3 text-sm font-bold text-ink-900">VALMIKI ONLINE SERVICE</p>
 

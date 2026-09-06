@@ -27,7 +27,7 @@ export function OrderDetailContent({ orderId }: { orderId: string }) {
 
   return (
     <Container className="py-6 sm:py-8">
-      <Link href="/orders" className="mb-4 flex items-center gap-1.5 text-sm font-medium text-ink-500 hover:text-primary-700">
+      <Link href="/orders" className="mb-4 flex items-center gap-1.5 text-sm font-medium text-ink-500 hover:text-secondary-600">
         <ChevronLeft className="size-4" /> Back to Orders
       </Link>
 

@@ -73,7 +73,7 @@ export function FrequentlyBoughtTogether({
               </div>
               <Link
                 href={`/product/${p.id}`}
-                className="max-w-24 truncate text-center text-xs text-ink-700 hover:text-primary-700 sm:max-w-28"
+                className="max-w-24 truncate text-center text-xs text-ink-700 hover:text-secondary-600 sm:max-w-28"
               >
                 {p.name}
               </Link>

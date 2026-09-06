@@ -9,11 +9,13 @@ import type { Product } from "@/types/firestore";
 export function ProductRail({
   title,
   subtitle,
+  eyebrow,
   viewAllHref,
   products,
 }: {
   title: string;
   subtitle?: string;
+  eyebrow?: string;
   viewAllHref?: string;
   products: Product[];
 }) {
@@ -25,24 +27,32 @@ export function ProductRail({
 
   if (products.length === 0) return null;
 
+  const arrowClass =
+    "absolute top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-current/25 bg-surface/90 text-ink-900 shadow-elevated backdrop-blur transition-all duration-300 hover:scale-110 hover:border-secondary-500/70 hover:text-secondary-600 active:scale-95";
+
   return (
     <section className="relative">
-      <SectionHeading title={title} subtitle={subtitle} viewAllHref={viewAllHref} />
+      <SectionHeading
+        title={title}
+        subtitle={subtitle}
+        eyebrow={eyebrow}
+        viewAllHref={viewAllHref}
+      />
 
       <div className="hidden sm:block">
         <button
           aria-label="Scroll left"
           onClick={() => scrollByAmount(-1)}
-          className="absolute -left-4 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full glass shadow-elevated ring-1 ring-secondary-500/20 transition-all duration-300 hover:-translate-x-0.5 hover:scale-110 hover:ring-2 hover:ring-secondary-400/60 active:scale-95"
+          className={`${arrowClass} -left-4 hover:-translate-x-0.5`}
         >
-          <ChevronLeft className="size-5 text-primary-700" />
+          <ChevronLeft className="size-5" />
         </button>
         <button
           aria-label="Scroll right"
           onClick={() => scrollByAmount(1)}
-          className="absolute -right-4 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full glass shadow-elevated ring-1 ring-secondary-500/20 transition-all duration-300 hover:translate-x-0.5 hover:scale-110 hover:ring-2 hover:ring-secondary-400/60 active:scale-95"
+          className={`${arrowClass} -right-4 hover:translate-x-0.5`}
         >
-          <ChevronRight className="size-5 text-primary-700" />
+          <ChevronRight className="size-5" />
         </button>
       </div>
 

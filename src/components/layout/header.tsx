@@ -27,11 +27,11 @@ function IconLink({
     <Link
       href={href}
       aria-label={label}
-      className="relative flex size-10 items-center justify-center rounded-full text-primary-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-50 hover:shadow-soft active:scale-95"
+      className="relative flex size-10 items-center justify-center rounded-full text-on-dark transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:text-secondary-300 active:scale-95"
     >
       {icon}
       {!!count && count > 0 && (
-        <span className="absolute -right-0.5 -top-0.5 flex size-4.5 items-center justify-center rounded-full bg-secondary-500 text-[10px] font-bold text-primary-900">
+        <span className="absolute -right-0.5 -top-0.5 flex size-4.5 items-center justify-center rounded-full bg-gradient-gold text-[10px] font-bold text-on-accent shadow-gold">
           {count > 9 ? "9+" : count}
         </span>
       )}
@@ -51,7 +51,7 @@ export function Header() {
   ];
 
   return (
-    <header className="glass sticky top-0 z-30 border-x-0 border-t-0 border-b border-secondary-500/25 !bg-white/70 shadow-[0_1px_0_rgba(255,255,255,0.7)_inset,0_10px_30px_-14px_rgba(14,59,92,0.22)] after:absolute after:inset-x-0 after:-bottom-px after:h-px after:bg-gradient-gold after:opacity-60 after:content-['']">
+    <header className="section-dark glass-dark sticky top-0 z-30 border-x-0 border-t-0 border-b border-secondary-500/25 after:absolute after:inset-x-0 after:-bottom-px after:h-px after:bg-gradient-gold after:opacity-70 after:content-['']">
       <Container className="flex h-16 items-center gap-3 sm:h-20">
         <div className="flex items-center gap-1 md:hidden">
           <MobileMenu />
@@ -74,13 +74,13 @@ export function Header() {
         </div>
       </Container>
 
-      <div className="border-t border-border px-4 pb-3 pt-2 md:hidden">
+      <div className="border-t border-white/10 px-4 pb-3 pt-2 md:hidden">
         <SearchBar />
       </div>
 
-      <div className="hidden border-t border-border md:block">
+      <div className="hidden border-t border-white/10 md:block">
         <Container>
-          <nav className="flex h-11 items-center justify-center gap-6">
+          <nav className="flex h-11 items-center justify-center gap-7">
             {navItems.map((item) => {
               const active = pathname === item.href;
               return (
@@ -88,8 +88,8 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "group relative py-1 text-sm font-medium text-ink-700 transition-colors hover:text-primary-700",
-                    active && "font-semibold text-primary-700"
+                    "group relative py-1 text-[13px] font-medium uppercase tracking-[0.14em] transition-colors",
+                    active ? "text-secondary-300" : "text-on-dark-muted hover:text-on-dark"
                   )}
                 >
                   {item.label}

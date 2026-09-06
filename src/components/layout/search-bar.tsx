@@ -55,7 +55,7 @@ export function SearchBar({ className, autoFocus }: { className?: string; autoFo
           }}
           onFocus={() => setOpen(true)}
           placeholder="Search for groceries, stationery & more..."
-          className="h-11 w-full rounded-full border border-border-strong bg-white pl-10 pr-10 text-sm text-ink-900 placeholder:text-ink-500 outline-none transition-colors focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+          className="h-11 w-full rounded-full border border-border bg-surface/85 pl-10 pr-10 text-sm text-ink-900 placeholder:text-ink-500 outline-none transition-colors focus:border-secondary-400 focus:ring-2 focus:ring-secondary-500/25"
         />
         {query && (
           <button
@@ -79,7 +79,7 @@ export function SearchBar({ className, autoFocus }: { className?: string; autoFo
               key={product.id}
               href={`/product/${product.id}`}
               onClick={() => setOpen(false)}
-              className="flex items-center gap-3 p-2.5 transition-colors hover:bg-primary-50"
+              className="flex items-center gap-3 p-2.5 transition-colors hover:bg-secondary-500/10"
             >
               <ProductImage
                 src={product.images[0]}

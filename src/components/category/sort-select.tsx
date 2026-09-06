@@ -25,7 +25,7 @@ export function SortSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as SortOption)}
-        className="h-10 appearance-none rounded-lg border border-border-strong bg-white pl-9 pr-8 text-sm font-medium text-ink-900 outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
+        className="h-10 appearance-none rounded-lg border border-border-strong bg-surface pl-9 pr-8 text-sm font-medium text-ink-900 outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
