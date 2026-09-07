@@ -140,7 +140,7 @@
   --shadow-gold: var(--shadow-gold);
   --shadow-dark: var(--shadow-dark);
 
-  --font-display: var(--font-playfair);
+  --font-display: var(--font-inter);
   --font-sans: var(--font-inter);
 
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;

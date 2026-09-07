@@ -116,7 +116,7 @@ export function HomeContent() {
         </Reveal>
       </Section>
 
-      <Section tone="dark">
+      <Section tone="cream" className="bg-white">
         <Reveal>
           <Newsletter />
         </Reveal>
