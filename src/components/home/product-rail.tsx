@@ -39,37 +39,39 @@ export function ProductRail({
         viewAllHref={viewAllHref}
       />
 
-      <div className="hidden sm:block">
-        <button
-          aria-label="Scroll left"
-          onClick={() => scrollByAmount(-1)}
-          className={`${arrowClass} -left-4 hover:-translate-x-0.5`}
-        >
-          <ChevronLeft className="size-5" />
-        </button>
-        <button
-          aria-label="Scroll right"
-          onClick={() => scrollByAmount(1)}
-          className={`${arrowClass} -right-4 hover:translate-x-0.5`}
-        >
-          <ChevronRight className="size-5" />
-        </button>
-      </div>
-
-      <div
-        ref={scrollerRef}
-        className="no-scrollbar flex gap-3 overflow-x-auto scroll-smooth pb-1 sm:gap-4"
-        style={{ scrollSnapType: "x mandatory" }}
-      >
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="w-[46%] shrink-0 sm:w-[calc(25%-0.75rem)] lg:w-[calc(20%-0.8rem)]"
-            style={{ scrollSnapAlign: "start" }}
+      <div className="relative rounded-2xl border border-border p-3 sm:p-4">
+        <div className="hidden sm:block">
+          <button
+            aria-label="Scroll left"
+            onClick={() => scrollByAmount(-1)}
+            className={`${arrowClass} left-2 hover:-translate-x-0.5`}
           >
-            <ProductCard product={product} />
-          </div>
-        ))}
+            <ChevronLeft className="size-5" />
+          </button>
+          <button
+            aria-label="Scroll right"
+            onClick={() => scrollByAmount(1)}
+            className={`${arrowClass} right-2 hover:translate-x-0.5`}
+          >
+            <ChevronRight className="size-5" />
+          </button>
+        </div>
+
+        <div
+          ref={scrollerRef}
+          className="no-scrollbar flex gap-3 overflow-x-auto scroll-smooth sm:gap-4"
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="w-[46%] shrink-0 sm:w-[calc(25%-0.75rem)] lg:w-[calc(20%-0.8rem)]"
+              style={{ scrollSnapAlign: "start" }}
+            >
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

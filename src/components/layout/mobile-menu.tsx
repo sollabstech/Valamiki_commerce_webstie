@@ -5,10 +5,10 @@ import { Menu, User, Heart, Package, MapPin, Phone, Tag } from "lucide-react";
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { siteConfig } from "@/config/site";
 import { Logo } from "@/components/layout/logo";
-import { useCategories } from "@/hooks/use-categories";
+import { useCatalog } from "@/hooks/use-catalog";
 
 export function MobileMenu() {
-  const categories = useCategories();
+  const { categories } = useCatalog();
 
   const link =
     "flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm font-medium text-on-dark transition-colors hover:bg-white/10 hover:text-secondary-300";

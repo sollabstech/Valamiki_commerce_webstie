@@ -13,7 +13,7 @@ export function Logo({ className }: { className?: string }) {
         className="h-9 w-9 object-contain sm:h-10 sm:w-10"
         priority
       />
-      <span className="font-display text-xl font-extrabold tracking-tight text-ink-900 sm:text-2xl">
+      <span className="font-display text-xl font-bold tracking-tight text-ink-900 sm:text-2xl">
         VALMIKI
       </span>
     </Link>

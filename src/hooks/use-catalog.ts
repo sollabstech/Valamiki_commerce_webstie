@@ -8,27 +8,50 @@ import type { Product, Category, Banner } from "@/types/firestore";
 
 const NEW_ARRIVAL_WINDOW_DAYS = 60;
 
+type CatalogData = { products: Product[]; categories: Category[]; banners: Banner[] };
+const EMPTY: CatalogData = { products: [], categories: [], banners: [] };
+
+// One fetch per session, shared across every component that calls useCatalog().
+let cache: CatalogData | null = null;
+let inflight: Promise<CatalogData> | null = null;
+
+function loadCatalog(): Promise<CatalogData> {
+  if (cache) return Promise.resolve(cache);
+  if (!inflight) {
+    inflight = Promise.all([fetchProducts(), fetchCategories(), fetchBanners()])
+      .then(([products, categories, banners]) => {
+        cache = { products, categories, banners };
+        return cache;
+      })
+      .catch(() => EMPTY);
+  }
+  return inflight;
+}
+
+/** Clears the cache so the next useCatalog() mount refetches. */
+export function refreshCatalog() {
+  cache = null;
+  inflight = null;
+}
+
 export function useCatalog() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [banners, setBanners] = useState<Banner[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<CatalogData>(cache ?? EMPTY);
+  const [loading, setLoading] = useState(!cache);
 
   useEffect(() => {
+    if (cache) return;
     let active = true;
-    Promise.all([fetchProducts(), fetchCategories(), fetchBanners()]).then(
-      ([p, c, b]) => {
-        if (!active) return;
-        setProducts(p);
-        setCategories(c);
-        setBanners(b);
-        setLoading(false);
-      }
-    );
+    loadCatalog().then((d) => {
+      if (!active) return;
+      setData(d);
+      setLoading(false);
+    });
     return () => {
       active = false;
     };
   }, []);
+
+  const { products, categories, banners } = data;
 
   const derived = useMemo(() => {
     const cutoff = Date.now() - NEW_ARRIVAL_WINDOW_DAYS * 24 * 60 * 60 * 1000;

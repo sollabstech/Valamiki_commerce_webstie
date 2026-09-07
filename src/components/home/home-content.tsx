@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
@@ -8,9 +9,22 @@ import { HeroBanner } from "@/components/home/hero-banner";
 import { TrustBar } from "@/components/home/trust-bar";
 import { CategoryGrid } from "@/components/home/category-grid";
 import { ProductRail } from "@/components/home/product-rail";
+import { PromoBanner, type PromoBannerProps } from "@/components/home/promo-banner";
+import { ImageBanner } from "@/components/home/image-banner";
 import { WhyValmiki } from "@/components/home/why-valmiki";
 import { Testimonials } from "@/components/home/testimonials";
 import { Newsletter } from "@/components/home/newsletter";
+
+const PROMOS: Record<string, PromoBannerProps> = {
+  featured: {
+    eyebrow: "Weekly essentials",
+    title: "Stock up and save every week",
+    subtitle:
+      "The staples you buy again and again — bundled at everyday-low prices, delivered the same day.",
+    ctaText: "Shop best value",
+    ctaHref: "/category/all?filter=bestsellers",
+  },
+};
 
 export function HomeContent() {
   const { banners, featured, bestsellers, newArrivals, loading } = useCatalog();
@@ -67,11 +81,27 @@ export function HomeContent() {
       </Section>
 
       {rails.map(({ id, ...rail }) => (
-        <Section key={id} tone={nextTone()}>
-          <Reveal>
-            <ProductRail {...rail} />
-          </Reveal>
-        </Section>
+        <Fragment key={id}>
+          <Section tone={nextTone()}>
+            <Reveal>
+              <ProductRail {...rail} />
+            </Reveal>
+          </Section>
+          {PROMOS[id] && (
+            <Section tone="cream" className="py-6 sm:py-8">
+              <Reveal>
+                <PromoBanner {...PROMOS[id]} />
+              </Reveal>
+            </Section>
+          )}
+          {id === "new" && banners.length > 0 && (
+            <Section tone="cream" className="py-6 sm:py-8">
+              <Reveal>
+                <ImageBanner banner={banners[1] ?? banners[0]} />
+              </Reveal>
+            </Section>
+          )}
+        </Fragment>
       ))}
 
       <Section tone={nextTone()}>
@@ -86,7 +116,7 @@ export function HomeContent() {
         </Reveal>
       </Section>
 
-      <Section tone="dark" className="py-0 sm:py-0">
+      <Section tone="dark">
         <Reveal>
           <Newsletter />
         </Reveal>

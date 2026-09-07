@@ -17,7 +17,7 @@ export function Section({
     <section
       className={cn(
         "py-14 sm:py-20",
-        tone === "dark" && "section-dark on-dark-grid",
+        tone === "dark" && "section-dark",
         tone === "surface" && "bg-cream-100",
         className
       )}

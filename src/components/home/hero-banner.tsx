@@ -4,8 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import type { Banner } from "@/types/firestore";
 import { cn } from "@/lib/utils";
@@ -41,82 +39,46 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
   }, [emblaApi]);
 
   return (
-    <section className="section-dark on-dark-grid relative overflow-hidden">
-      <div className="pointer-events-none absolute -right-24 top-1/2 size-[34rem] -translate-y-1/2 rounded-full bg-secondary-500/12 blur-[120px]" />
-      <Container className="relative grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-2 lg:gap-8">
-        {/* Copy */}
-        <div className="animate-fade-up max-w-xl">
-          <span className="eyebrow">Your neighbourhood store, online</span>
-          <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.08] text-on-dark sm:text-5xl md:text-[3.4rem]">
-            Groceries &amp; Stationery.
-            <span className="mt-1 block italic text-secondary-300">Delivered fast.</span>
-          </h1>
-          <p className="mt-5 max-w-md text-sm leading-relaxed text-on-dark-muted sm:text-base">
-            Everyday essentials and school supplies from Valmiki, Salem — genuine
-            brands, fair prices, same-day delivery.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button asChild size="lg">
-              <Link href="/category/all">
-                Shop now <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-on-dark">
-              <Link href="/categories">Browse categories</Link>
-            </Button>
-          </div>
-          <div className="mt-8 flex items-center gap-3 text-sm text-on-dark-muted">
-            <span className="flex items-center gap-0.5 text-secondary-300">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="size-4 fill-current" />
-              ))}
-            </span>
-            <span>4.8/5 from shoppers across Salem</span>
-          </div>
-        </div>
-
-        {/* Visual */}
-        <div className="relative">
-          <div className="rounded-2xl bg-gradient-gold p-[3px] shadow-dark">
-            <div
-              className="overflow-hidden rounded-[0.95rem] bg-dark-800"
-              ref={emblaRef}
-            >
-              <div className="flex">
-                {(withImages.length > 0 ? withImages : [null]).map((banner, i) => (
-                  <div key={banner?.id ?? i} className="relative min-w-0 flex-[0_0_100%]">
-                    {banner ? (
-                      <Link
-                        href={bannerHref(banner)}
-                        className="group relative block aspect-[4/3] overflow-hidden sm:aspect-[16/11]"
-                      >
-                        <Image
-                          src={banner.imageUrl}
-                          alt={banner.title}
-                          fill
-                          priority={i === 0}
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                        />
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                        {banner.title && (
-                          <div className="absolute inset-x-0 bottom-0 p-5">
-                            <p className="font-display text-lg font-semibold text-white">
+    <section className="section-dark overflow-hidden">
+      <h1 className="sr-only">Valmiki — groceries &amp; stationery delivered fast in Salem</h1>
+      <Container className="py-10 sm:py-14">
+        <div className="animate-fade-up mx-auto max-w-5xl">
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-black" ref={emblaRef}>
+            <div className="flex">
+              {(withImages.length > 0 ? withImages : [null]).map((banner, i) => (
+                <div key={banner?.id ?? i} className="relative min-w-0 flex-[0_0_100%]">
+                  {banner ? (
+                    <Link
+                      href={bannerHref(banner)}
+                      className="group relative block aspect-[16/9] overflow-hidden sm:aspect-[21/9]"
+                    >
+                      <Image
+                        src={banner.imageUrl}
+                        alt={banner.title}
+                        fill
+                        priority={i === 0}
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      {banner.title && (
+                        <>
+                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                          <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+                            <p className="font-display text-lg font-semibold text-white sm:text-xl">
                               {banner.title}
                             </p>
                           </div>
-                        )}
-                      </Link>
-                    ) : (
-                      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-gradient-dark sm:aspect-[16/11]">
-                        <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_30%_20%,var(--color-secondary-500)_1px,transparent_1px)] [background-size:26px_26px]" />
-                        <span className="relative font-display text-2xl italic text-secondary-300">
-                          Valmiki
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+                        </>
+                      )}
+                    </Link>
+                  ) : (
+                    <div className="flex aspect-[16/9] items-center justify-center bg-black sm:aspect-[21/9]">
+                      <span className="font-display text-2xl italic text-secondary-400">
+                        Valmiki
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
 
@@ -129,7 +91,7 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
                   onClick={() => scrollTo(i)}
                   className={cn(
                     "h-1.5 rounded-full transition-all",
-                    selected === i ? "w-7 bg-secondary-400" : "w-1.5 bg-on-dark-muted/50"
+                    selected === i ? "w-7 bg-secondary-500" : "w-1.5 bg-white/25"
                   )}
                 />
               ))}

@@ -5,13 +5,13 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/layout/logo";
 import { siteConfig } from "@/config/site";
-import { useCategories } from "@/hooks/use-categories";
+import { useCatalog } from "@/hooks/use-catalog";
 
 export function Footer() {
-  const categories = useCategories();
+  const { categories } = useCatalog();
 
   return (
-    <footer className="section-dark on-dark-grid mt-auto border-t border-secondary-500/25 pb-24 md:pb-0">
+    <footer className="section-dark mt-auto border-t border-secondary-500/25 pb-24 md:pb-0">
       <div className="h-0.5 w-full bg-gradient-gold" />
 
       <div className="border-b border-white/10">
