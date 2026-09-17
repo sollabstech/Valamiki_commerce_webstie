@@ -27,7 +27,7 @@ const PROMOS: Record<string, PromoBannerProps> = {
 };
 
 export function HomeContent() {
-  const { banners, featured, bestsellers, newArrivals, loading } = useCatalog();
+  const { mainBanners, subBanners, featured, bestsellers, newArrivals, loading } = useCatalog();
 
   if (loading) {
     return (
@@ -71,7 +71,7 @@ export function HomeContent() {
 
   return (
     <div>
-      <HeroBanner banners={banners} />
+      <HeroBanner banners={mainBanners} />
       <TrustBar />
 
       <Section tone="cream" className="pt-16 sm:pt-24">
@@ -94,10 +94,10 @@ export function HomeContent() {
               </Reveal>
             </Section>
           )}
-          {id === "new" && banners.length > 0 && (
+          {id === "new" && subBanners.length > 0 && (
             <Section tone="cream" className="py-6 sm:py-8">
               <Reveal>
-                <ImageBanner banner={banners[1] ?? banners[0]} />
+                <ImageBanner banner={subBanners[0]} />
               </Reveal>
             </Section>
           )}

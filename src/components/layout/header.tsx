@@ -48,6 +48,7 @@ export function Header() {
   const navItems = [
     { label: "Home", href: "/" },
     ...categories.map((c) => ({ label: c.name, href: `/category/${c.id}` })),
+    { label: "Print Order", href: "/print-order" },
   ];
 
   return (

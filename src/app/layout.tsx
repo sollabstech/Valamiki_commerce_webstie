@@ -62,6 +62,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://firestore.googleapis.com" />
+        <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
+        <link rel="preconnect" href="https://identitytoolkit.googleapis.com" />
+      </head>
       <body className="flex min-h-full flex-col bg-cream text-ink-900">
         <Providers>
           <AnnouncementBar />

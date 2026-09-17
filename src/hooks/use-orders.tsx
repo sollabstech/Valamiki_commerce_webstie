@@ -15,10 +15,12 @@ import {
   where,
   onSnapshot,
   serverTimestamp,
+  getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import { getDb } from "@/lib/firebase";
 import { useAuth } from "@/hooks/use-auth";
-import type { Order } from "@/types/firestore";
+import type { CancelRequestStatus, Order } from "@/types/firestore";
 
 type OrderInput = Omit<Order, "id" | "createdAt" | "orderStatus"> & {
   orderStatus?: Order["orderStatus"];
@@ -28,6 +30,7 @@ type OrdersContextValue = {
   orders: Order[];
   placeOrder: (input: OrderInput) => Order;
   getOrder: (id: string) => Order | undefined;
+  requestCancellation: (orderId: string, reason: string) => Promise<{ success: boolean; error?: string }>;
 };
 
 const OrdersContext = createContext<OrdersContextValue | null>(null);
@@ -38,6 +41,13 @@ function reviveOrder(order: Order): Order {
     ...order,
     createdAt: new Date(order.createdAt),
     updatedAt: order.updatedAt ? new Date(order.updatedAt) : undefined,
+    cancelRequest: order.cancelRequest
+      ? {
+          ...order.cancelRequest,
+          requestedAt: new Date(order.cancelRequest.requestedAt),
+          reviewedAt: order.cancelRequest.reviewedAt ? new Date(order.cancelRequest.reviewedAt) : undefined,
+        }
+      : undefined,
   };
 }
 
@@ -51,11 +61,22 @@ function fromFirestore(data: Record<string, unknown>, docId: string): Order {
     const d = new Date(v as string | number | Date);
     return isNaN(d.getTime()) ? undefined : d;
   };
+  const rawCancelRequest = data.cancelRequest as
+    | { reason?: string; status?: CancelRequestStatus; requestedAt?: unknown; reviewedAt?: unknown }
+    | undefined;
   return {
     ...(data as unknown as Order),
     id: (data.id as string) || docId,
     createdAt: toDate(data.createdAt) ?? new Date(),
     updatedAt: toDate(data.updatedAt),
+    cancelRequest: rawCancelRequest
+      ? {
+          reason: rawCancelRequest.reason ?? "",
+          status: rawCancelRequest.status ?? "pending",
+          requestedAt: toDate(rawCancelRequest.requestedAt) ?? new Date(),
+          reviewedAt: toDate(rawCancelRequest.reviewedAt),
+        }
+      : undefined,
   };
 }
 
@@ -133,8 +154,55 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
 
   const getOrder = (id: string) => orders.find((o) => o.id === id);
 
+  /**
+   * Customer-initiated cancellation request. This doesn't cancel the order
+   * directly — it flags it for admin review, who can accept (cancels the
+   * order) or reject the request.
+   */
+  const requestCancellation = async (
+    orderId: string,
+    reason: string
+  ): Promise<{ success: boolean; error?: string }> => {
+    const db = getDb();
+    if (!db) return { success: false, error: "You're offline — try again once you're back online." };
+
+    const trimmedReason = reason.trim();
+    if (!trimmedReason) return { success: false, error: "Please tell us why you'd like to cancel." };
+
+    try {
+      const snap = await getDocs(query(collection(db, "orders"), where("id", "==", orderId)));
+      if (snap.empty) return { success: false, error: "Order not found." };
+
+      await updateDoc(snap.docs[0].ref, {
+        cancelRequest: {
+          reason: trimmedReason,
+          status: "pending",
+          requestedAt: serverTimestamp(),
+        },
+        updatedAt: serverTimestamp(),
+      });
+
+      // Optimistic local update — onSnapshot will also reconcile shortly.
+      setOrders((prev) =>
+        prev.map((o) =>
+          o.id === orderId
+            ? {
+                ...o,
+                cancelRequest: { reason: trimmedReason, status: "pending", requestedAt: new Date() },
+                updatedAt: new Date(),
+              }
+            : o
+        )
+      );
+
+      return { success: true };
+    } catch {
+      return { success: false, error: "Couldn't submit your cancellation request. Please try again." };
+    }
+  };
+
   const value = useMemo<OrdersContextValue>(
-    () => ({ orders, placeOrder, getOrder }),
+    () => ({ orders, placeOrder, getOrder, requestCancellation }),
     [orders]
   );
 

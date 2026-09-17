@@ -68,6 +68,15 @@ export type OrderStatus =
   | "delivered"
   | "cancelled";
 
+export type CancelRequestStatus = "pending" | "approved" | "rejected";
+
+export interface CancelRequest {
+  reason: string;
+  status: CancelRequestStatus;
+  requestedAt: Date;
+  reviewedAt?: Date;
+}
+
 export interface Order {
   id: string;
   userId: string;
@@ -81,6 +90,7 @@ export interface Order {
   orderStatus: OrderStatus;
   createdAt: Date;
   updatedAt?: Date;
+  cancelRequest?: CancelRequest;
 }
 
 export interface Banner {
@@ -92,6 +102,7 @@ export interface Banner {
   linkValue?: string;
   isActive: boolean;
   sortOrder?: number;
+  bannerType?: "main" | "sub";
 }
 
 export interface Offer {

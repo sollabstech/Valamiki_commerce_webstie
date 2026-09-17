@@ -12,6 +12,7 @@ function fromDoc(id: string, data: DocumentData): Banner {
     linkValue: data.linkValue,
     isActive: data.isActive ?? true,
     sortOrder: data.sortOrder,
+    bannerType: data.bannerType === "sub" ? "sub" : "main",
   };
 }
 

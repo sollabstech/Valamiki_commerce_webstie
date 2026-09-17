@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, User, Heart, Package, MapPin, Phone, Tag } from "lucide-react";
+import { Menu, User, Heart, Package, MapPin, Phone, Tag, Printer } from "lucide-react";
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { siteConfig } from "@/config/site";
 import { Logo } from "@/components/layout/logo";
@@ -74,6 +74,13 @@ export function MobileMenu() {
               <SheetClose asChild>
                 <Link href="/orders" className={link}>
                   <Package className="size-4.5 text-secondary-400" /> Orders
+                </Link>
+              </SheetClose>
+            </li>
+            <li>
+              <SheetClose asChild>
+                <Link href="/print-order" className={link}>
+                  <Printer className="size-4.5 text-secondary-400" /> Print Order
                 </Link>
               </SheetClose>
             </li>

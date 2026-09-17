@@ -62,8 +62,10 @@ export function useCatalog() {
       newArrivals: products
         .filter((p) => p.isAvailable && p.createdAt.getTime() >= cutoff)
         .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()),
+      mainBanners: banners.filter((b) => (b.bannerType ?? "main") === "main"),
+      subBanners: banners.filter((b) => b.bannerType === "sub"),
     };
-  }, [products]);
+  }, [products, banners]);
 
   return { products, categories, banners, loading, ...derived };
 }
