@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { Providers } from "@/components/providers";
-import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
@@ -69,7 +68,6 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-full flex-col bg-cream text-ink-900">
         <Providers>
-          <AnnouncementBar />
           <Header />
           <main className="flex-1 pb-16 md:pb-0">{children}</main>
           <Footer />

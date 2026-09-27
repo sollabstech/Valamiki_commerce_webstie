@@ -6,8 +6,10 @@ import { toast } from "sonner";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { AddressSelector } from "@/components/checkout/address-selector";
+import { ImageBanner } from "@/components/home/image-banner";
 import { useAddresses } from "@/hooks/use-addresses";
 import { useAuth } from "@/hooks/use-auth";
+import { useCatalog } from "@/hooks/use-catalog";
 import { whatsappLink } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -54,6 +56,7 @@ function OptionButton({ label, active, onClick }: { label: string; active: boole
 export function PrintOrderContent() {
   const { user } = useAuth();
   const { addresses, defaultAddress } = useAddresses();
+  const { printBanners } = useCatalog();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [files, setFiles] = useState<File[]>([]);
@@ -182,6 +185,12 @@ export function PrintOrderContent() {
       <p className="mt-1 text-sm text-ink-500">
         Upload your files and tell us how you&apos;d like them printed — we&apos;ll pick it up on WhatsApp.
       </p>
+
+      {printBanners.length > 0 && (
+        <div className="mt-5">
+          <ImageBanner banner={printBanners[0]} />
+        </div>
+      )}
 
       <div className="mt-6 flex flex-col gap-5">
         <div className="rounded-lg bg-surface p-5 shadow-soft ring-1 ring-border">

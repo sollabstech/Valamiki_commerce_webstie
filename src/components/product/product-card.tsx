@@ -30,11 +30,11 @@ export function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <div className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface shadow-soft transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-secondary-500/50 hover:shadow-elevated">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-lg bg-dark-900 shadow-gold transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-elevated">
       <div className="relative">
         <Link
           href={`/product/${product.id}`}
-          className="relative block aspect-square overflow-hidden bg-cream-100"
+          className="relative block aspect-square overflow-hidden bg-dark-800"
         >
           <ProductImage
             src={product.images[0]}
@@ -42,16 +42,15 @@ export function ProductCard({ product }: { product: Product }) {
             categoryId={product.categoryId}
             className="size-full transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute left-2 top-2 flex flex-col items-start gap-1">
-            {product.isFlashDeal && <Badge variant="deal">Flash Deal</Badge>}
-            {isNew && <Badge variant="primary">New</Badge>}
-            {product.isPopular && <Badge variant="solid">Bestseller</Badge>}
-          </div>
-          {discounted && (
-            <div className="absolute right-2 top-2">
-              <Badge variant="error">{product.discountPercent}% Off</Badge>
+          {product.isPopular && (
+            <div className="absolute left-2 top-2">
+              <Badge variant="solid">Bestseller</Badge>
             </div>
           )}
+          <div className="absolute right-2 top-2 flex flex-col items-end gap-1">
+            {discounted && <Badge variant="error">{product.discountPercent}% Off</Badge>}
+            {isNew && <Badge variant="primary">New</Badge>}
+          </div>
         </Link>
 
         <button
@@ -70,30 +69,35 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="flex flex-1 flex-col gap-1.5 p-3.5">
-        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-secondary-600">
+        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-secondary-400">
           {product.categoryName}
         </p>
         <Link href={`/product/${product.id}`}>
-          <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-semibold text-ink-900 transition-colors group-hover:text-secondary-600">
+          <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-semibold text-on-dark transition-colors group-hover:text-secondary-300">
             {product.name}
           </h3>
         </Link>
 
         <div className="flex items-center gap-1.5">
           <RatingStars rating={product.rating} />
-          <span className="text-xs text-ink-500">({product.reviewCount})</span>
+          <span className="text-xs text-on-dark-muted">({product.reviewCount})</span>
         </div>
 
         <div className="mt-1 flex items-baseline gap-1.5">
-          <span className="font-display text-lg font-bold text-secondary-600">
+          <span className="font-display text-lg font-bold text-secondary-400">
             {formatPrice(price)}
           </span>
           {discounted && (
-            <span className="text-xs text-ink-300 line-through">
+            <span className="text-xs text-on-dark-muted line-through">
               {formatPrice(product.price)}
             </span>
           )}
         </div>
+        {product.isFlashDeal && (
+          <div>
+            <Badge variant="deal">Flash Deal</Badge>
+          </div>
+        )}
 
         <button
           type="button"

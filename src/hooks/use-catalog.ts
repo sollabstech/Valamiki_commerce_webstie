@@ -64,6 +64,7 @@ export function useCatalog() {
         .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()),
       mainBanners: banners.filter((b) => (b.bannerType ?? "main") === "main"),
       subBanners: banners.filter((b) => b.bannerType === "sub"),
+      printBanners: banners.filter((b) => b.bannerType === "print"),
     };
   }, [products, banners]);
 

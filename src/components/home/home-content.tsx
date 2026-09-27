@@ -6,7 +6,6 @@ import { Section } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
 import { useCatalog } from "@/hooks/use-catalog";
 import { HeroBanner } from "@/components/home/hero-banner";
-import { TrustBar } from "@/components/home/trust-bar";
 import { CategoryGrid } from "@/components/home/category-grid";
 import { ProductRail } from "@/components/home/product-rail";
 import { PromoBanner, type PromoBannerProps } from "@/components/home/promo-banner";
@@ -72,9 +71,8 @@ export function HomeContent() {
   return (
     <div>
       <HeroBanner banners={mainBanners} />
-      <TrustBar />
 
-      <Section tone="cream" className="pt-16 sm:pt-24">
+      <Section tone="cream" className="pt-8 sm:pt-10">
         <Reveal>
           <CategoryGrid />
         </Reveal>
@@ -88,14 +86,14 @@ export function HomeContent() {
             </Reveal>
           </Section>
           {PROMOS[id] && (
-            <Section tone="cream" className="py-6 sm:py-8">
+            <Section tone="cream" className="py-4 sm:py-6">
               <Reveal>
                 <PromoBanner {...PROMOS[id]} />
               </Reveal>
             </Section>
           )}
           {id === "new" && subBanners.length > 0 && (
-            <Section tone="cream" className="py-6 sm:py-8">
+            <Section tone="cream" className="py-4 sm:py-6">
               <Reveal>
                 <ImageBanner banner={subBanners[0]} />
               </Reveal>
