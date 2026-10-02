@@ -21,6 +21,7 @@ export interface Product {
   isFeatured: boolean;
   isPopular: boolean;
   isFlashDeal: boolean;
+  isNew: boolean;
   rating: number;
   reviewCount: number;
   tags: string[];
@@ -139,9 +140,4 @@ export function effectivePrice(product: Product) {
 
 export function hasDiscount(product: Product) {
   return product.discountPrice > 0 && product.discountPrice < product.price;
-}
-
-export function isRecentlyAdded(product: Product, days = 60) {
-  const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
-  return product.createdAt.getTime() >= cutoff;
 }

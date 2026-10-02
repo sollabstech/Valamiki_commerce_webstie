@@ -20,7 +20,7 @@ import { ProductRail } from "@/components/home/product-rail";
 import { useCatalog } from "@/hooks/use-catalog";
 import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
-import { effectivePrice, hasDiscount, isRecentlyAdded } from "@/types/firestore";
+import { effectivePrice, hasDiscount } from "@/types/firestore";
 import { cn, formatPrice } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
@@ -118,7 +118,7 @@ export function ProductDetailContent({ productId }: { productId: string }) {
   // ─── Product found ────────────────────────────────────────────────────────
   const discounted = hasDiscount(product);
   const price = effectivePrice(product);
-  const isNew = isRecentlyAdded(product);
+  const isNew = product.isNew;
   const wishlisted = isWishlisted(product.id);
   const outOfStock = product.stock <= 0;
 
@@ -170,15 +170,15 @@ export function ProductDetailContent({ productId }: { productId: string }) {
             </span>
           </div>
 
-          <div className="mt-4 flex items-baseline gap-3">
+          <div className="mt-4">
             <span className="text-3xl font-bold text-ink-900">{formatPrice(price)}</span>
             {discounted && (
-              <>
+              <div className="mt-1 flex items-center gap-3">
                 <span className="text-lg text-ink-300 line-through">{formatPrice(product.price)}</span>
                 <span className="rounded-full bg-error/10 px-2.5 py-1 text-sm font-bold text-error">
                   {product.discountPercent}% OFF
                 </span>
-              </>
+              </div>
             )}
           </div>
           <p className="mt-1 text-xs text-ink-500">Inclusive of all taxes</p>

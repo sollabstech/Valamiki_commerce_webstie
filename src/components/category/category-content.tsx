@@ -10,7 +10,7 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { SortSelect, type SortOption } from "@/components/category/sort-select";
 import { FilterPanel, matchesPriceBand, type PriceBand } from "@/components/category/filter-panel";
 import { useCatalog } from "@/hooks/use-catalog";
-import { effectivePrice, isRecentlyAdded } from "@/types/firestore";
+import { effectivePrice } from "@/types/firestore";
 
 function sortProducts(products: ReturnType<typeof useCatalog>["products"], sort: SortOption) {
   const sorted = [...products];
@@ -57,7 +57,7 @@ export function CategoryContent({ categoryId }: { categoryId: string }) {
 
     if (isAll && filter === "featured") list = list.filter((p) => p.isFeatured);
     if (isAll && filter === "bestsellers") list = list.filter((p) => p.isPopular);
-    if (isAll && filter === "new") list = list.filter((p) => isRecentlyAdded(p));
+    if (isAll && filter === "new") list = list.filter((p) => p.isNew);
 
     list = list.filter((p) => matchesPriceBand(effectivePrice(p), priceBand));
     if (inStockOnly) list = list.filter((p) => p.stock > 0);

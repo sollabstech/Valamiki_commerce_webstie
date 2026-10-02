@@ -2,7 +2,7 @@ import { collection, doc, getDoc, getDocs, type DocumentData } from "firebase/fi
 import { getDb } from "@/lib/firebase";
 import type { Product } from "@/types/firestore";
 
-function fromDoc(id: string, data: DocumentData): Product {
+export function fromDoc(id: string, data: DocumentData): Product {
   return {
     id,
     name: data.name ?? "",
@@ -19,6 +19,7 @@ function fromDoc(id: string, data: DocumentData): Product {
     isFeatured: data.isFeatured ?? false,
     isPopular: data.isPopular ?? false,
     isFlashDeal: data.isFlashDeal ?? false,
+    isNew: data.isNew ?? false,
     rating: data.rating ?? 0,
     reviewCount: data.reviewCount ?? 0,
     tags: data.tags ?? [],

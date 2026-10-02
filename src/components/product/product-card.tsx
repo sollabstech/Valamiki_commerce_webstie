@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { ProductImage } from "@/components/product/product-image";
 import { RatingStars } from "@/components/product/rating-stars";
-import { effectivePrice, hasDiscount, isRecentlyAdded, type Product } from "@/types/firestore";
+import { effectivePrice, hasDiscount, type Product } from "@/types/firestore";
 import { cn, formatPrice } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
@@ -19,7 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
   const wishlisted = isWishlisted(product.id);
   const discounted = hasDiscount(product);
   const price = effectivePrice(product);
-  const isNew = isRecentlyAdded(product);
+  const isNew = product.isNew;
   const outOfStock = product.stock <= 0;
 
   const handleAddToCart = () => {
@@ -104,7 +104,7 @@ export function ProductCard({ product }: { product: Product }) {
           onClick={handleAddToCart}
           disabled={outOfStock}
           className={cn(
-            "mt-2.5 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-md text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-300 disabled:opacity-50",
+            "mt-auto inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-md text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-300 disabled:opacity-50",
             justAdded
               ? "bg-success text-white"
               : "bg-gradient-gold text-on-accent shadow-gold ring-1 ring-inset ring-white/25 hover:brightness-105 hover:-translate-y-0.5"
