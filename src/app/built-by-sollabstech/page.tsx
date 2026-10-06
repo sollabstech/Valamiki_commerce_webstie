@@ -9,10 +9,12 @@ import {
   Smartphone,
   LayoutDashboard,
   Shield,
-  Zap,
   Package,
   ArrowUpRight,
   CheckCircle2,
+  CreditCard,
+  MessageCircle,
+  Truck,
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
@@ -30,40 +32,52 @@ export const metadata: Metadata = {
 
 const features = [
   {
-    icon: ShoppingCart,
-    title: "Full E-Commerce Storefront",
+    icon: Shield,
+    title: "Phone OTP Login",
     description:
-      "Product listings, category browsing, search, cart, wishlist, and a seamless multi-step checkout — all optimised for mobile-first shoppers.",
+      "Secure Firebase authentication — no passwords needed. Customers sign in with a one-time code sent to their phone.",
   },
   {
-    icon: Smartphone,
-    title: "Mobile-First Design",
+    icon: ShoppingCart,
+    title: "Product Catalogue",
     description:
-      "Responsive UI with a native-app feel — bottom navigation, swipe-friendly carousels, and tap-optimised product cards.",
+      "Browse hundreds of groceries and stationery items by category or search. Filtered listings with fast, real-time results.",
+  },
+  {
+    icon: Package,
+    title: "Cart & Wishlist",
+    description:
+      "Save items to wishlist, manage cart quantities, and checkout seamlessly — all synced to the user's account.",
+  },
+  {
+    icon: CreditCard,
+    title: "Razorpay + COD Payments",
+    description:
+      "Customers can pay securely online via Razorpay or choose Cash on Delivery — whatever suits them best.",
+  },
+  {
+    icon: Truck,
+    title: "Order Tracking",
+    description:
+      "Real-time order status updates with a full order history, printable receipts, and delivery confirmation.",
+  },
+  {
+    icon: MessageCircle,
+    title: "WhatsApp Support",
+    description:
+      "One-tap customer support via WhatsApp — customers reach the store directly without leaving the app.",
   },
   {
     icon: LayoutDashboard,
     title: "Admin Dashboard",
     description:
-      "A dedicated admin panel for managing products, categories, banners, orders, users, offers, and store settings — all in real time.",
+      "A dedicated admin panel to manage products, orders, banners, users, offers, and store settings in real time.",
   },
   {
-    icon: Shield,
-    title: "Secure Authentication",
+    icon: Smartphone,
+    title: "Mobile-First UI",
     description:
-      "Firebase-backed phone OTP authentication with protected account pages, address book, and full order history.",
-  },
-  {
-    icon: Package,
-    title: "Order Management",
-    description:
-      "End-to-end order flow with status tracking, printable receipts, and WhatsApp-integrated customer support.",
-  },
-  {
-    icon: Zap,
-    title: "Blazing Fast",
-    description:
-      "Built on Next.js 16 with React Server Components, Turbopack, and optimised image delivery for near-instant page loads.",
+      "Bottom navigation, swipe-friendly carousels, and tap-optimised product cards — built for how people actually shop.",
   },
 ];
 
@@ -72,10 +86,12 @@ const stack = [
   { label: "React 19", sublabel: "UI Layer" },
   { label: "Tailwind CSS v4", sublabel: "Styling" },
   { label: "Firebase v12", sublabel: "Auth + Firestore" },
-  { label: "Razorpay", sublabel: "Payments" },
-  { label: "TypeScript", sublabel: "Type Safety" },
+  { label: "Phone OTP", sublabel: "Firebase Auth" },
+  { label: "Razorpay + COD", sublabel: "Payments" },
+  { label: "Lucide React", sublabel: "Icon System" },
+  { label: "Embla Carousel", sublabel: "Animations" },
   { label: "Vercel", sublabel: "Deployment" },
-  { label: "Lucide Icons", sublabel: "Icon System" },
+  { label: "TypeScript", sublabel: "Type Safety" },
 ];
 
 const deliverables = [
@@ -127,10 +143,11 @@ export default function BuiltBySollabstechPage() {
           <div className="mx-auto mt-5 h-px w-16 bg-gradient-gold" aria-hidden />
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-on-dark-muted sm:text-lg">
-            This website — the online store for{" "}
-            <strong className="font-semibold text-on-dark">Valmiki Online Service</strong> — was
-            designed, developed, and deployed by Sollabstech, a full-stack
-            software studio based in India.
+            <strong className="font-semibold text-on-dark">Valmiki Online Service</strong> is
+            Salem&apos;s go-to destination for groceries and stationery, delivered right to your
+            doorstep. Browse hundreds of products across categories, add to cart, and check out
+            in minutes. Built for local families who want everyday essentials without stepping
+            out. Fast delivery, easy returns, and prices that make sense.
           </p>
 
           {/* client + agency cards */}
@@ -218,7 +235,7 @@ export default function BuiltBySollabstechPage() {
             </p>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {features.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
